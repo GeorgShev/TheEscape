@@ -1,0 +1,137 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: UITable_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: a2c599146766e3143bdff145d370ca6a, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 504135826046998
+    m_Localized: Start Game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 504633027231744
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 504753852547072
+    m_Localized: Exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 511582288510976
+    m_Localized: Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 511684541448192
+    m_Localized: Start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 512327796686848
+    m_Localized: in development
+    m_Metadata:
+      m_Items: []
+  - m_Id: 512772615208960
+    m_Localized: Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 514642582732800
+    m_Localized: 'Move (Keyboard) - W A S D
+
+      Acive ability - L Shift'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 519951703375872
+    m_Localized: Details
+    m_Metadata:
+      m_Items: []
+  - m_Id: 520213222424576
+    m_Localized: Library
+    m_Metadata:
+      m_Items: []
+  - m_Id: 520331019452416
+    m_Localized: Manual
+    m_Metadata:
+      m_Items: []
+  - m_Id: 520644736614400
+    m_Localized: Main menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 523689910370304
+    m_Localized: Cansel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 523756180373504
+    m_Localized: Confim
+    m_Metadata:
+      m_Items: []
+  - m_Id: 523900523151360
+    m_Localized: Do you want to return to the main menu?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 524049089593344
+    m_Localized: If you return to the main menu, the current playthrough will end.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 524511880708096
+    m_Localized: conture
+    m_Metadata:
+      m_Items: []
+  - m_Id: 524771566845952
+    m_Localized: Do you want to continue?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 524907709759488
+    m_Localized: If you start a new playthrough, the progress of the current playthrough
+      will disappear
+    m_Metadata:
+      m_Items: []
+  - m_Id: 526413213237248
+    m_Localized: The end of the adventure
+    m_Metadata:
+      m_Items: []
+  - m_Id: 526660102553600
+    m_Localized: Your ship is down, you need to get back to base.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527273393684480
+    m_Localized: You have cleared this planet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527450259095552
+    m_Localized: Your mission on this planet is over. It's time to go to the base
+      for new tasks.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 532510774951936
+    m_Localized: Control the movement by pressing the W A S D key or using the slider
+      located in this area
+    m_Metadata:
+      m_Items: []
+  - m_Id: 532841218998272
+    m_Localized: The health status of your ship
+    m_Metadata:
+      m_Items: []
+  - m_Id: 533091656695808
+    m_Localized: If you get an active skill, you need to press Shift or the button
+      that appears in this zone to activate it.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 533687042342912
+    m_Localized: click || to go to the pause menu
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

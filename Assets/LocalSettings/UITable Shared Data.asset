@@ -1,0 +1,138 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: UITable Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: UITable
+  m_TableCollectionNameGuidString: a2c599146766e3143bdff145d370ca6a
+  m_Entries:
+  - m_Id: 504135826046998
+    m_Key: menu_start_game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 504633027231744
+    m_Key: "menu_settings\t"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 504753852547072
+    m_Key: menu_exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 511582288510976
+    m_Key: menu_back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 511684541448192
+    m_Key: menu_start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 512327796686848
+    m_Key: 'menu_audio
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 512772615208960
+    m_Key: "menu_language\t"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 514642582732800
+    m_Key: menu_manual_description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 519951703375872
+    m_Key: menu_details
+    m_Metadata:
+      m_Items: []
+  - m_Id: 520213222424576
+    m_Key: "menu_library\t"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 520331019452416
+    m_Key: menu_manual_button
+    m_Metadata:
+      m_Items: []
+  - m_Id: 520644736614400
+    m_Key: menu_mainMenu_button
+    m_Metadata:
+      m_Items: []
+  - m_Id: 523689910370304
+    m_Key: menu_cansel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 523756180373504
+    m_Key: menu_confim
+    m_Metadata:
+      m_Items: []
+  - m_Id: 523900523151360
+    m_Key: menu_return_mainmenu_heading
+    m_Metadata:
+      m_Items: []
+  - m_Id: 524049089593344
+    m_Key: menu_return_mainmenu_body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 524511880708096
+    m_Key: menu_conture
+    m_Metadata:
+      m_Items: []
+  - m_Id: 524771566845952
+    m_Key: menu_new_travel_heading
+    m_Metadata:
+      m_Items: []
+  - m_Id: 524907709759488
+    m_Key: menu_new_travel_body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 526413213237248
+    m_Key: menu_death_choise_heading
+    m_Metadata:
+      m_Items: []
+  - m_Id: 526660102553600
+    m_Key: menu_death_choise_body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527273393684480
+    m_Key: menu_finish_screen_heading
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527450259095552
+    m_Key: menu_finish_screen_body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 532510774951936
+    m_Key: brif_movement_manual
+    m_Metadata:
+      m_Items: []
+  - m_Id: 532841218998272
+    m_Key: brif_HP_manual
+    m_Metadata:
+      m_Items: []
+  - m_Id: 533091656695808
+    m_Key: brif_ability_manual
+    m_Metadata:
+      m_Items: []
+  - m_Id: 533687042342912
+    m_Key: brif_menu_manual
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 4457256869622448226
+  references:
+    version: 2
+    RefIds:
+    - rid: 4457256869622448226
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1740413259049
