@@ -1,26 +1,28 @@
 using Player.StateMachine;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Player
 {
     public class PlayerController : MonoBehaviour
     {
-        public CharacterController CharacterController;
-        public float MovementSpeed;
-        public PlayerRotate PlayerRotate;
-        public Animator Animator;   
+        public CharacterController characterController;
+        public Animator Animator;
+        public AbilityHolder AbilityHolder;
 
         [SerializeField] private float smoothInputSpeed = .2f;
 
-    
+
         private Vector2 _axis;
         private Vector2 _currentInputVector;
         private Vector2 _smoothInputVelocity;
-    
+
         private InputSystem_Actions _inputSystemActions;
         private StateMachine.StateMachine _stateMachine;
         private RunState _runState;
         private IdleState _idleState;
+        private DashState _dashState;
+        private Vector2 _inputAxis;
 
 
         private void Awake()
@@ -31,13 +33,15 @@ namespace Player
         private void OnEnable()
         {
             _inputSystemActions.Player.Enable();
+            AbilityHolder.Construct(_inputSystemActions);
         }
 
         public void Start()
         {
             _stateMachine = new StateMachine.StateMachine();
             _idleState = new IdleState(this, Animator);
-            _runState = new RunState(this, Animator);
+            _runState = new RunState(this, Animator,  _inputSystemActions);
+            _dashState = new DashState(this, Animator,  _inputSystemActions);
             _stateMachine.Initialize(_idleState);
         }
 
@@ -50,40 +54,30 @@ namespace Player
         private void Update()
         {
             _stateMachine.CurrentState?.Update();
-            CalculateMovementVector();
+            GatherInput();
             ChangeState();
         }
 
         private void ChangeState()
         {
-            if (CharacterController.velocity.sqrMagnitude < Constants.Elipson)
-            {
-                _stateMachine.ChangeState(_idleState);
-            }
-            else
+            if (_inputAxis.sqrMagnitude > Constants.Elipson && AbilityHolder.state != AbilityHolder.AbilityState.active)
             {
                 _stateMachine.ChangeState(_runState);
             }
-        }
-
-        private void CalculateMovementVector()
-        {
-            Vector2 axis = _inputSystemActions.Player.Move.ReadValue<Vector2>();
-            _currentInputVector = Vector2.SmoothDamp(_currentInputVector, axis, ref _smoothInputVelocity, smoothInputSpeed);
-            Vector3 movementvector = new Vector3(_currentInputVector.x, 0, _currentInputVector.y);
-         
-            Matrix4x4 isometricMatrix = Matrix4x4.Rotate(Quaternion.Euler(0, 45, 0));
-            Vector3 multipliedMatrix = isometricMatrix.MultiplyPoint3x4(movementvector);
-
-            if (axis.sqrMagnitude > Constants.Elipson)
+            else if(AbilityHolder.state == AbilityHolder.AbilityState.active)
             {
-                PlayerRotate.UpdateMovementVector(multipliedMatrix);
+                _stateMachine.ChangeState(_dashState);
             }
-            
-            CharacterController.Move(multipliedMatrix * (MovementSpeed * Time.deltaTime));
-         
-
+            else
+            {
+                _stateMachine.ChangeState(_idleState);
+            }
         }
-    
+
+        private void GatherInput()
+        {
+            _inputAxis = _inputSystemActions.Player.Move.ReadValue<Vector2>();
+        }
+        
     }
 }

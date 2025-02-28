@@ -10,7 +10,7 @@ namespace Player
 
         void Update()
         {
-            RotateTowards();
+            //RotateTowards();
         }
 
         public void UpdateMovementVector(Vector3 movementVector)

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7630517744203335164}
   - component: {fileID: 618462062825586457}
   - component: {fileID: 467389822121852617}
+  - component: {fileID: 8621503076236199856}
   - component: {fileID: 1136364811783571117}
   - component: {fileID: 5957927157997885321}
   m_Layer: 7
@@ -107,10 +108,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a3bd94d8d1c18b4ca6322e9ee5a08c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterController: {fileID: 8981382267621642600}
-  MovementSpeed: 1.5
-  PlayerRotate: {fileID: 7630517744203335164}
+  characterController: {fileID: 8981382267621642600}
   Animator: {fileID: 3001044719149809665}
+  AbilityHolder: {fileID: 8621503076236199856}
   smoothInputSpeed: 0.2
 --- !u!114 &7630517744203335164
 MonoBehaviour:
@@ -154,6 +154,22 @@ MonoBehaviour:
   Button1Text: menu_mainMenu_button
   ChoiseHeadding: menu_death_choise_heading
   ChoiseBody: menu_death_choise_body
+--- !u!114 &8621503076236199856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1195997421709459639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0f27ec180505464e94e896567f2d378, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownTime: 10
+  activeTime: 0
+  state: 0
+  IsAbilityUse: 0
 --- !u!54 &1136364811783571117
 Rigidbody:
   m_ObjectHideFlags: 0
