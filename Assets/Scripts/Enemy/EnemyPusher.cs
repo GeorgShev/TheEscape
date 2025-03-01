@@ -20,11 +20,11 @@ namespace Enemy
             {
                 //Debug.LogError(other.gameObject.name);
                 //Debug.LogError(magnitude.ToString());
-                objectCollision.gameObject.GetComponent<IHealth>().TakeDamage(1, Color.white);
+                objectCollision.gameObject.GetComponent<IHealth>()?.TakeDamage(1, Color.white);
             }
             else if (objectCollision.gameObject.CompareTag(PlayerTag))
             {
-                objectCollision.gameObject.GetComponent<IHealth>().TakeDamage(1, Color.white);
+                objectCollision.gameObject.GetComponent<IHealth>()?.TakeDamage(1, Color.white);
             }
             
         }

@@ -39,8 +39,6 @@ namespace Logic.EnemySpawners
                 EnemyPool.FillList(enemy);
             }
             
-            WaveManager.Construct();
-            
             
            //GameObject enemy = await _gameFactory.CreateEnemy(EnemyTypeId, transform);
             //_enemyDeath = enemy.GetComponent<EnemyDeath>();

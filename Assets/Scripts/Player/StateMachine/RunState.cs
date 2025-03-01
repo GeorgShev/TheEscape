@@ -42,6 +42,7 @@ namespace Player.StateMachine
         public override void Enter()
         {
             Player.Animator.CrossFade(_animationNames.RunHash, 0.1f);
+            Debug.LogError(("run entered"));
         }
 
         public override void Exit()

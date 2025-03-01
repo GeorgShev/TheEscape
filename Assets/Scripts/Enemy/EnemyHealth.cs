@@ -10,14 +10,14 @@ namespace Enemy
     {
 
         public event Action HealthChanged;
-        public float CurrentHP { get; set; }
-        public float MaxHP { get; set; }
+        public int CurrentHP { get; set; }
+        public int MaxHP { get; set; }
     
 
         public GameObject TextPrefab { get; set; }
 
 
-        public void TakeDamage(float damage, Color color)
+        public void TakeDamage(int damage, Color color)
         {
             CurrentHP -= damage;
 
@@ -30,7 +30,7 @@ namespace Enemy
             
         }
 
-        public void TakeHP(float HP)
+        public void TakeHP(int HP)
         {
             HealthChanged?.Invoke();
 

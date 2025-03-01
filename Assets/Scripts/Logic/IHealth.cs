@@ -6,12 +6,12 @@ namespace Logic
     public interface IHealth
     {
         event Action HealthChanged;
-        float CurrentHP { get; set; }
-        float MaxHP { get; set; }
+        int CurrentHP { get; set; }
+        int MaxHP { get; set; }
 
         GameObject TextPrefab { get; set; }
 
-        void TakeDamage(float damage, Color color);
-        void TakeHP(float HP);
+        void TakeDamage(int damage, Color color);
+        void TakeHP(int HP);
     }
 }

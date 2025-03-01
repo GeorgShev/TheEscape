@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections;
-using Data;
 using Logic;
-using Services.PersistentProgressService;
-using Services.Randomizer;
 using TMPro;
 using UnityEngine;
 
@@ -13,8 +10,8 @@ namespace Player
     {
 
         public event Action HealthChanged;
-        public float CurrentHP { get; set; }
-        public float MaxHP { get; set; }
+        public int CurrentHP { get; set; }
+        public int MaxHP { get; set; }
 
        
         private int _randomValue;
@@ -24,15 +21,16 @@ namespace Player
 
        
 
-        public void TakeDamage(float damage, Color color)
+        public void TakeDamage(int damage, Color color)
         {
                 CurrentHP -= damage;
                 HealthChanged?.Invoke();
+                Debug.Log(CurrentHP);
             //ShowText(damage.ToString(), Color.red);
 
         }
 
-        public void TakeHP(float Hp)
+        public void TakeHP(int Hp)
         {
             CurrentHP += Hp;
             HealthChanged?.Invoke();

@@ -3,14 +3,12 @@ using Infrastructure.State;
 using Services.PersistentProgressService;
 using UI.Services.Windows;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Player
 {
     [RequireComponent(typeof(PlayerDeath))]
     public class PlayerDeath : MonoBehaviour
     {
-        public PlayerController playerController;
 
         public GameObject DeathFx;
 
@@ -27,42 +25,15 @@ namespace Player
         private IPersistentProgressService _persistentProgressService;
         private PlayerHealth _playerHealth;
 
-        public void Construct(IGameStateMachine gameStateMachine, IWindowService windowService, IPersistentProgressService persistentProgressService, PlayerHealth playerHealth)
+        public void Construct(IGameStateMachine gameStateMachine, IWindowService windowService, IPersistentProgressService persistentProgressService)
         {
             _gameStateMachine = gameStateMachine;
             _windowService = windowService;
             _persistentProgressService = persistentProgressService;
-            _playerHealth = playerHealth;
-            HealthChangedSubscribe();
         }
 
-        private void HealthChangedSubscribe()
+        public void Die()
         {
-            _playerHealth.HealthChanged += HealthChanged;
-        }
-
-        private void OnDestroy()
-        {
-            _playerHealth.HealthChanged -= HealthChanged;
-        }
-
-        private void HealthChanged()
-        {
-            if(!_isDead && _playerHealth.CurrentHP <= 0)
-            {
-                Die();
-
-            }
-            //Debug.Log(heroHealth.CurrentHP);
-        }
-
-        private void Die()
-        {
-            _isDead = true;
-            playerController.enabled = false;
-            //Animator.Play(Die);
-
-            //Destroy(gameObject);
             gameObject.SetActive(false);
 
             //Instantiate(DeathFx, transform.position, Quaternion.identity);

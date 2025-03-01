@@ -8,37 +8,50 @@ using Random = UnityEngine.Random;
 public class WaveManager : MonoBehaviour
 {
     public EnemyPool enemyPool;
-    public AnimationCurve spawnRateCurve; // Кривая пейсинга для спавна
+    public AnimationCurve spawnRateCurve; 
     public CameraBoundsVisualizer CameraBoundsVisualizer;
-    public int initialEnemiesPerWave = 2; // Количество врагов в первой волне
-    public float timeBetweenWaves = 10f; // Время между волнами
+    public int initialEnemiesPerWave = 2; 
+    public float timeBetweenWaves = 10f; 
     public float waveDifficultyMultiplier = 1.2f;
-    public float spawnAreaPadding = 1f;// Множитель сложности волны
+    public float spawnAreaPadding = 1f;
 
     private int currentWave = 0;
     private int enemiesRemainingInWave;
     private bool isSpawningWave = false;
+    private bool isPaused = false;
 
-    public void Construct()
+    private void Start()
+    {
+       Invoke("StartingWavesAfterDelay", 3f); 
+    }
+
+    private void StartingWavesAfterDelay()
     {
         StartCoroutine(StartWaves());
     }
 
     IEnumerator StartWaves()
     {
-        while (true) // Бесконечный цикл волн
+        while (true) 
         {
+            
+            if (isPaused) 
+            {
+                yield return null;
+                continue;
+            }
+            
             currentWave++;
             Debug.Log($"Wave {currentWave} started!");
 
-            // Увеличиваем сложность волны
+            
             int enemiesInWave = Mathf.RoundToInt(initialEnemiesPerWave * Mathf.Pow(waveDifficultyMultiplier, currentWave - 1));
             enemiesRemainingInWave = enemiesInWave;
 
-            // Настраиваем спавнер для текущей волны
+            
             StartCoroutine(SpawnWave(enemiesInWave));
 
-            // Ждем фиксированное время перед началом следующей волны
+           
             yield return new WaitForSeconds(timeBetweenWaves);
         }
     }
@@ -49,14 +62,14 @@ public class WaveManager : MonoBehaviour
 
         while (enemiesToSpawn > 0)
         {
-            // Проверяем, есть ли свободные враги в пуле
+            
             if (enemyPool.GetActiveEnemyCount() < enemyPool.poolSize)
             {
                 SpawnEnemy();
                 enemiesToSpawn--;
             }
 
-            // Интервал спавна на основе кривой пейсинга
+            
             float spawnDelay = spawnRateCurve.Evaluate(Time.time / 60f); 
             yield return new WaitForSeconds(spawnDelay);
         }
@@ -72,6 +85,37 @@ public class WaveManager : MonoBehaviour
 
             // Настройка сложности врага (например, увеличение здоровья или скорости)
            
+        }
+    }
+    
+    public void PauseWaves()
+    {
+        isPaused = true;
+    }
+    public void ResumeAfterPause()
+    {
+        isPaused = false;
+    }
+    
+    public void ResumeAfterRefresh()
+    {
+        //isPaused = false;
+        Invoke("ResumeAfterPause", 3f);
+    }
+
+    public void RefreshWaves()
+    {
+        isPaused = true;
+        HideAllEnemies();
+        //StopCoroutine(StartWaves());
+        
+        
+    }
+    private void HideAllEnemies()
+    {
+        foreach (var enemy in enemyPool.enemyPool)
+        {
+            enemy.SetActive(false);
         }
     }
     

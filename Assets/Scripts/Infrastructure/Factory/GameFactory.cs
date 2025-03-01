@@ -81,7 +81,12 @@ namespace Infrastructure.Factory
             health.MaxHP = playerStaticData.MaxHP;
             health.TextPrefab = await _assetsProvider.Load<GameObject>(AssetsAddress.HpText);
             PlayerDeath heroDeath = _playerGameObject.GetComponent<PlayerDeath>();
-            heroDeath.Construct(_gameStateMachine, _windowService, _persistentProgressService, health);
+            heroDeath.Construct(_gameStateMachine, _windowService, _persistentProgressService);
+            
+            PlayerController playerController = _playerGameObject.GetComponent<PlayerController>();
+            playerController.Construct(health);
+            
+            _gameManager.GetComponent<GameManager>().InitPlayer(_playerGameObject);
 
             return _playerGameObject;
         }
@@ -151,10 +156,6 @@ namespace Infrastructure.Factory
             health.MaxHP = monsterStaticData.Hp;
             health.TextPrefab = await _assetsProvider.Load<GameObject>(AssetsAddress.HpText);
 
-
-            
-
-
             /*LootSpawner lootSpawner = enemy.GetComponentInChildren<LootSpawner>();
             lootSpawner.SetLoot(monsterStaticData.MinLoot, monsterStaticData.MaxLoot);
             lootSpawner.Construct(this, _randomService);*/
@@ -178,8 +179,7 @@ namespace Infrastructure.Factory
             EnemyPool enemyPool = spawner.GetComponent<EnemyPool>();
             enemyPool.Construct(_playerGameObject,enemyStaticData);
             
-
-            
+            _gameManager.GetComponent<GameManager>().InitSpawner(spawner);
         }
         
         
