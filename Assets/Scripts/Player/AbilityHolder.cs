@@ -42,7 +42,7 @@ namespace Player
         public void InitHUD(AbilityUI abilityUI)
         {
             _abilityUi = abilityUI;
-            _abilityUi.AbilityButton.gameObject.SetActive(false);
+            //_abilityUi.AbilityButton.gameObject.SetActive(true);
         }
 
 

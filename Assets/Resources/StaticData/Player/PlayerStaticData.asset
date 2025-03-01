@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerTypeIdTyoeId: 0
   CurrentHP: 3
-  MaxHP: 3
+  MaxHP: 10
   Damage: 0
   Speed: 1.5

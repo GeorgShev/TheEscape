@@ -1,13 +1,14 @@
-﻿using Logic;
+﻿using System;
+using Logic;
 using TMPro;
 using UnityEngine;
 
-namespace Scripts.UI.Elements
+namespace UI.Elements
 {
     public class ActorUI : MonoBehaviour
     {
         public HpBar HpBar;
-        public TextMeshProUGUI TextMeshProUGUI;
+        //public TextMeshProUGUI TextMeshProUGUI;
 
         private IHealth _heroHealth;
 
@@ -16,18 +17,16 @@ namespace Scripts.UI.Elements
         public void Construct(IHealth health)
         {
             _heroHealth = health;
+            UpdateHpBar();
+            HpBar.gameObject.SetActive(true);
             _heroHealth.HealthChanged += UpdateHpBar;
         }
 
+       
+
         private void Awake()
         {
-            // Logic for enemies
-            IHealth health = GetComponent<IHealth>();
-
-            if (health != null)
-            {
-                Construct(health);
-            }
+            HpBar.gameObject.SetActive(false);
         }
         private void OnDestroy()
         {
@@ -40,10 +39,10 @@ namespace Scripts.UI.Elements
         private void UpdateHpBar()
         {
             HpBar.SetValue(_heroHealth.CurrentHP, _heroHealth.MaxHP);
-            if(TextMeshProUGUI != null)
+            /*if(TextMeshProUGUI != null)
             {
                 TextMeshProUGUI.SetText(_heroHealth.CurrentHP.ToString());
-            }
+            }*/
             
         }
 

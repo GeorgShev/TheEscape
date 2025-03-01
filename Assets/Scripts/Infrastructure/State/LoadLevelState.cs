@@ -5,10 +5,12 @@ using Data;
 using Enemy;
 using Infrastructure.Factory;
 using Logic;
+using Player;
 using Scripts.UI.Elements;
 using Services.PersistentProgressService;
 using Services.StaticDataService;
 using StaticData;
+using UI.Elements;
 using UI.Services.Factory;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -95,7 +97,7 @@ namespace Infrastructure.State
                 await InitGate(levelStaticData);
                 await InitGameManager();
                 //await InitLootPieces();
-                GameObject hero = await InitHero(levelStaticData);
+                GameObject hero = await InitPlayer(levelStaticData);
                 await InitSpawners(levelStaticData);
                 await InitHud(hero, levelStaticData);
                 CameraFollow(hero);
@@ -138,12 +140,12 @@ namespace Infrastructure.State
         }
 
 
-        private async Task<GameObject> InitHero(LevelStaticData levelStaticData)
+        private async Task<GameObject> InitPlayer(LevelStaticData levelStaticData)
         {
             return await _gameFactory.CreatePlayer(levelStaticData.InitialHeroPosition);
         }
 
-        private async Task InitHud(GameObject hero, LevelStaticData levelStaticData)
+        private async Task InitHud(GameObject player, LevelStaticData levelStaticData)
         {
            
             if(levelStaticData.MenuLevel)
@@ -154,7 +156,8 @@ namespace Infrastructure.State
             {
                 
                 GameObject hud = await _gameFactory.CreateHud();
-                hud.GetComponentInChildren<ActorUI>()?.Construct(hero.GetComponent<IHealth>());
+                hud.GetComponentInChildren<ActorUI>()?.Construct(player.GetComponent<IHealth>());
+                hud.GetComponentInChildren<AbilityUI>()?.Construct(player.GetComponent<AbilityHolder>());
             }
         }
 

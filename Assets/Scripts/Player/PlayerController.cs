@@ -115,7 +115,9 @@ namespace Player
 
         private bool CanDash()
         {
-            bool canDash = AbilityHolder.state == AbilityHolder.AbilityState.active;
+            bool canDash = (AbilityHolder.state == AbilityHolder.AbilityState.active
+                && !Die() 
+                && !KnockedBack());
             return canDash;
         }
 

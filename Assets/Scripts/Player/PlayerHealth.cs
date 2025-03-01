@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Logic;
+using StaticData;
 using TMPro;
 using UnityEngine;
 
@@ -15,9 +16,19 @@ namespace Player
 
        
         private int _randomValue;
+        private PlayerStaticData _playerStaticData;
 
 
         public GameObject TextPrefab { get; set; }
+
+
+        public void Construct(PlayerStaticData playerStaticData)
+        {
+            _playerStaticData = playerStaticData;
+            MaxHP = playerStaticData.MaxHP;
+            CurrentHP = playerStaticData.CurrentHP;
+            HealthChanged?.Invoke();
+        }
 
        
 

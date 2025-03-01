@@ -77,8 +77,9 @@ namespace Infrastructure.Factory
             _playerGameObject = await InstantiateRegisteredAsync(AssetsAddress.HeroPath, playerInitialPoint);
 
             PlayerHealth health = _playerGameObject.GetComponent<PlayerHealth>();
-            health.CurrentHP = playerStaticData.CurrentHP;
-            health.MaxHP = playerStaticData.MaxHP;
+            health.Construct(playerStaticData);
+            /*health.MaxHP = playerStaticData.MaxHP;
+            health.CurrentHP = playerStaticData.CurrentHP;*/
             health.TextPrefab = await _assetsProvider.Load<GameObject>(AssetsAddress.HpText);
             PlayerDeath heroDeath = _playerGameObject.GetComponent<PlayerDeath>();
             heroDeath.Construct(_gameStateMachine, _windowService, _persistentProgressService);
