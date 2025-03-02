@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a6c3269c96ec5e449b397087bac805c, type: 3}
+  m_Name: WindowPauseMenuSD
+  m_EditorClassIdentifier: 
+  WindowId: 5
+  Prefab: {fileID: 5869396539578348652, guid: 06afafa2c4f62ea42b5e7ee6d1b7ac71, type: 3}
