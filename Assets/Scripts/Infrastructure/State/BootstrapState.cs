@@ -58,7 +58,8 @@ namespace Infrastructure.State
 
             _services.RegisterSingle<IWindowService>(new WindowService(_services.Single<IUIFactory>()));
 
-            _services.RegisterSingle<IGameFactory>(new GameFactory(_services.Single<IAssetProvider>(), 
+            _services.RegisterSingle<IGameFactory>(new GameFactory(_services.Single<IAssetProvider>(),
+                _services.Single<IInputService>(),
                 _services.Single<IStaticDataService>(), 
                 _services.Single<IRandomService>(), 
                 _services.Single<IPersistentProgressService>(),

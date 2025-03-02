@@ -24,10 +24,5 @@ namespace UI.Elements
             _abilityHolder.InitHUD(this);
         }
 
-        public void UseAbility()
-        {
-            _abilityHolder.IsAbilityUse = true;
-        }
-
     }
 }

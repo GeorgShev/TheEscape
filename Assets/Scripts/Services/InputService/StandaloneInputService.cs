@@ -4,7 +4,7 @@ namespace Services.InputService
 {
     public class StandaloneInputService : InputService
     {
-        /*public override Vector2 Axis
+        public override Vector2 Axis
         {
             get
             {
@@ -15,12 +15,11 @@ namespace Services.InputService
 
                 return axis;
             }
-        }*/
+        }
 
         private static Vector2 UnityAxis()
         {
-            //return new Vector2(UnityEngine.Input.GetAxis(Horizontal), UnityEngine.Input.GetAxis(Horizontal));
-            return new Vector2();
+            return new Vector2(UnityEngine.Input.GetAxis(Horizontal), UnityEngine.Input.GetAxis(Horizontal));
         }
     }
 }

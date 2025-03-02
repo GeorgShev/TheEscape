@@ -1,10 +1,11 @@
+using Services;
+using Services.InputService;
 using UnityEngine;
 
 namespace Player.StateMachine
 {
     public class DashState : State
     {
-        private InputSystem_Actions _inputSystemActions;
         private Vector2 _inputAxis;
         private Vector2 _currentInputVector;
         private Vector2 _smoothInputVelocity;
@@ -16,12 +17,10 @@ namespace Player.StateMachine
         //private bool _canDash = false;
 
 
-        public DashState(PlayerController player, Animator animator, InputSystem_Actions inputAxis) : base(player,
-            animator)
+        public DashState(PlayerController player, Animator animator) : base(player, animator)
         {
             Player = player;
             _animator = animator;
-            _inputSystemActions = inputAxis;
             _characterController = player.characterController;
             //_canDash = true;
         }

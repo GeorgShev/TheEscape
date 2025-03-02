@@ -8,6 +8,7 @@ using Logic;
 using Logic.EnemySpawners;
 using Logic.Gates;
 using Player;
+using Services.InputService;
 using Services.PersistentProgressService;
 using Services.Randomizer;
 using Services.StaticDataService;
@@ -27,6 +28,7 @@ namespace Infrastructure.Factory
 
 
         private readonly IAssetProvider _assetsProvider;
+        private readonly IInputService _inputService;
         private readonly IStaticDataService _staticDataService;
         private readonly IRandomService _randomService;
         private readonly IPersistentProgressService _persistentProgressService;
@@ -40,6 +42,7 @@ namespace Infrastructure.Factory
         
 
         public GameFactory(IAssetProvider assetsProvider,
+            IInputService inputService,
             IStaticDataService staticDataService,
             IRandomService randomService,
             IPersistentProgressService persistentProgressService,
@@ -47,6 +50,7 @@ namespace Infrastructure.Factory
             IGameStateMachine gameStateMachine)
         {
             _assetsProvider = assetsProvider;
+            _inputService = inputService;
             _staticDataService = staticDataService;
             _randomService = randomService;
             _persistentProgressService = persistentProgressService;

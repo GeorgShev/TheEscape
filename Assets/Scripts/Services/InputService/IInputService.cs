@@ -7,6 +7,5 @@ namespace Services.InputService
         Vector2 Axis { get; }
 
         bool IsDashButtonUp();
-        bool IsJumpButtonUp();
     }
 }

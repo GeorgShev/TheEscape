@@ -1,10 +1,12 @@
+using Services;
+using Services.InputService;
 using UnityEngine;
 
 namespace Player.StateMachine
 {
     public class RunState : State
     {
-        private InputSystem_Actions _inputSystemActions;
+        private IInputService _inputService;
         private Vector2 _inputAxis;
         private Vector2 _currentInputVector;
         private Vector2 _smoothInputVelocity;
@@ -16,18 +18,16 @@ namespace Player.StateMachine
 
         
         
-        public RunState(PlayerController player, Animator animator, InputSystem_Actions inputAxis) : base(player, animator)
+        public RunState(PlayerController player, Animator animator) : base(player, animator)
         {
             Player = player;
             _animator = animator;
-            _inputSystemActions = inputAxis;
             _characterController = player.characterController;
         }
 
         public override void Update()
         {
-            _inputAxis = _inputSystemActions.Player.Move.ReadValue<Vector2>();
-            _currentInputVector =  Vector2.SmoothDamp(_currentInputVector, _inputAxis, ref _smoothInputVelocity, _smoothInputSpeed);
+            _currentInputVector =  Vector2.SmoothDamp(_currentInputVector, _inputService.Axis, ref _smoothInputVelocity, _smoothInputSpeed);
             Vector3 movementvector = new Vector3(_currentInputVector.x, 0, _currentInputVector.y);
 
             Matrix4x4 isometricMatrix = Matrix4x4.Rotate(Quaternion.Euler(0, 45, 0));
@@ -41,6 +41,8 @@ namespace Player.StateMachine
 
         public override void Enter()
         {
+            //need refacrotinf
+            _inputService = AllServices.Container.Single<IInputService>();
             Player.Animator.CrossFade(_animationNames.RunHash, 0.1f);
             Debug.LogError(("run entered"));
         }

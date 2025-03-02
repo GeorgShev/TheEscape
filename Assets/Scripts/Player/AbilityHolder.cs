@@ -1,4 +1,7 @@
+using System;
 using Data;
+using Services;
+using Services.InputService;
 using Services.PersistentProgressService;
 using UI.Elements;
 using UnityEngine;
@@ -24,7 +27,7 @@ namespace Player
         private bool _loadAfterPause = false;
         private AbilityState _pauseState;
         private AbilityUI _abilityUi;
-        private InputSystem_Actions _inputSystemActions;
+        private IInputService _inputService;
         public float _cooldownTime;
 
         public  enum AbilityState
@@ -34,10 +37,11 @@ namespace Player
             cooldown
         }
 
-        public void Construct(InputSystem_Actions inputSystemActions)
+        private void Awake()
         {
-            _inputSystemActions = inputSystemActions;
+            _inputService = AllServices.Container.Single<IInputService>();
         }
+        
 
         public void InitHUD(AbilityUI abilityUI)
         {
@@ -60,7 +64,7 @@ namespace Player
                 LoadAfterPause();
             }
 
-            _dashInput = _inputSystemActions.Player.Sprint.IsPressed();
+            _dashInput = _inputService.IsDashButtonUp();
 
             state = UpdateAbilityState(state, Time.deltaTime);
             
@@ -157,7 +161,7 @@ namespace Player
             activeTime = 0;
         }
 
-        private void RefreshAbility()
+        public void RefreshAbility()
         {
             activeTime = 0f;
             _cooldownTime = 0;

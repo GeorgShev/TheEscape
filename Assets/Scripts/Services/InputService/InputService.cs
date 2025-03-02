@@ -4,16 +4,20 @@ namespace Services.InputService
 {
     public abstract class InputService : IInputService
     {
-        public Vector2 Axis { get; }
+        protected const string Horizontal = "Horizontal";
+        protected const string Vertical = "Vertical";
+        private const string Button = "Jump"; 
+        
+        
+        public abstract Vector2 Axis { get; }
         
         public bool IsDashButtonUp()
         {
-            throw new System.NotImplementedException();
+            return SimpleInput.GetButtonUp(Button);
         }
-
-        public bool IsJumpButtonUp()
+        protected static Vector2 SimpleInputAxis()
         {
-            throw new System.NotImplementedException();
+            return new Vector2(SimpleInput.GetAxis(Horizontal), SimpleInput.GetAxis(Vertical));
         }
     }
 }

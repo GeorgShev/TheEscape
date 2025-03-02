@@ -22,6 +22,7 @@ namespace Player.StateMachine
             
             Player.GetComponent<PlayerController>().KnockbackAction?.Invoke();
             Player.GetComponent<PlayerHealth>().enabled = false;
+            Player.GetComponent<AbilityHolder>().enabled = false;
             
             Debug.LogError(("knock entered"));
 
@@ -66,6 +67,8 @@ namespace Player.StateMachine
                     Player.RecoverAction?.Invoke();
                     Player.isKnockback = false;
                     Player.GetComponent<PlayerHealth>().enabled = true;
+                    Player.GetComponent<AbilityHolder>().enabled = true;
+                    Player.GetComponent<AbilityHolder>().RefreshAbility();
                     Exit();
                 }
             }

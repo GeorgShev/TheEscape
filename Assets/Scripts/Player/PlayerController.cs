@@ -1,8 +1,9 @@
 using System;
 using Logic;
 using Player.StateMachine;
+using Services;
+using Services.InputService;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Player
 {
@@ -25,7 +26,8 @@ namespace Player
         private Vector2 _smoothInputVelocity;
         private Vector2 _inputAxis;
 
-        private InputSystem_Actions _inputSystemActions;
+       
+        private IInputService _inputService;
         private StateMachine.StateMachine _stateMachine;
         private IHealth _health;
         private RunState _runState;
@@ -43,39 +45,28 @@ namespace Player
             
         }
 
-
         private void Awake()
         {
-            _inputSystemActions = new InputSystem_Actions();
+            //need refacrotinf
+            _inputService = AllServices.Container.Single<IInputService>();
         }
 
-        private void OnEnable()
-        {
-            _inputSystemActions.Player.Enable();
-            AbilityHolder.Construct(_inputSystemActions);
-        }
 
         public void Start()
         {
             _stateMachine = new StateMachine.StateMachine();
             _idleState = new IdleState(this, Animator);
-            _runState = new RunState(this, Animator,  _inputSystemActions);
-            _dashState = new DashState(this, Animator,  _inputSystemActions);
+            _runState = new RunState(this, Animator);
+            _dashState = new DashState(this, Animator);
             _knockoutState = new KnockoutState(this, Animator);
             _deathState = new DeathState(this, Animator,PlayerDeath);
             _stateMachine.Initialize(_idleState);
-        }
-
-        private void OnDisable()
-        {
-            _inputSystemActions.Player.Disable();
         }
 
 
         private void Update()
         {
             _stateMachine.CurrentState?.Update();
-            GatherInput();
             ChangeState();
         }
 
@@ -105,7 +96,7 @@ namespace Player
 
         private bool CanRun()
         {
-            bool canRun = (_inputAxis.sqrMagnitude > Constants.Elipson 
+            bool canRun = (_inputService.Axis.sqrMagnitude > Constants.Elipson 
                            && AbilityHolder.state != AbilityHolder.AbilityState.active
                            && !Die() 
                            && !KnockedBack());
@@ -134,10 +125,7 @@ namespace Player
         }
         
 
-        private void GatherInput()
-        {
-            _inputAxis = _inputSystemActions.Player.Move.ReadValue<Vector2>();
-        }
+       
         
         private void HealthChangedSubscribe()
         {
