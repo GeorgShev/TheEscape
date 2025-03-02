@@ -13,7 +13,7 @@ namespace Services.InputService
         
         public bool IsDashButtonUp()
         {
-            return SimpleInput.GetButtonUp(Button);
+            return SimpleInput.GetButtonDown(Button);
         }
         protected static Vector2 SimpleInputAxis()
         {
