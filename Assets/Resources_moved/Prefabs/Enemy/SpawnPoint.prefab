@@ -121,6 +121,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   padding: 5
   minSpawnDistance: 2
-  maxSpawnDistance: 10
+  maxSpawnDistance: 15
   maxAttempts: 20
   EnemyPool: {fileID: 2609983644097948436}

@@ -10,5 +10,6 @@ namespace Infrastructure.AssetManagement
         public const string GameManager = "GameManager";
         public const string HpText = "HpText";
         public const string EnemyRover_01 = "EnemyRover_01";
+        public const string WorldManager = "WorldManager";
     }
 }

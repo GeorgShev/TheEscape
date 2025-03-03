@@ -96,6 +96,7 @@ namespace Infrastructure.State
             {
                 await InitGate(levelStaticData);
                 await InitGameManager();
+                await InitWorldManager(levelStaticData);
                 //await InitLootPieces();
                 GameObject hero = await InitPlayer(levelStaticData);
                 await InitSpawners(levelStaticData);
@@ -108,6 +109,11 @@ namespace Infrastructure.State
         private async Task InitGameManager()
         {
             await _gameFactory.CreateGameManager();
+        }
+
+        private async Task InitWorldManager(LevelStaticData levelStaticData)
+        {
+            await _gameFactory.CreateWorldManager(levelStaticData.InitialHeroPosition);
         }
 
         private async Task InitGate(LevelStaticData levelStaticData)

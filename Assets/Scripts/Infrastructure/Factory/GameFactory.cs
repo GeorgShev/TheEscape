@@ -7,6 +7,7 @@ using Infrastructure.State;
 using Logic;
 using Logic.EnemySpawners;
 using Logic.Gates;
+using Logic.Scene;
 using Player;
 using Services.InputService;
 using Services.PersistentProgressService;
@@ -15,6 +16,7 @@ using Services.StaticDataService;
 using StaticData;
 using UI.Menu;
 using UI.Services.Windows;
+using Unity.VisualScripting;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -37,6 +39,7 @@ namespace Infrastructure.Factory
 
         private GameObject _playerGameObject;
         private GameObject _gameManager;
+        private GameObject _worldManager;
         private GameObject _gate;
         private GameObject _hud;
         
@@ -71,6 +74,15 @@ namespace Infrastructure.Factory
             GameObject gameManager = Object.Instantiate(prefab, new Vector3(0,0,0), Quaternion.identity);   
             _gameManager = gameManager;
         }
+        
+        public async Task CreateWorldManager(Vector3 playerInitialPoint)
+        {
+            GameObject prefab = await _assetsProvider.Load<GameObject>(AssetsAddress.WorldManager);
+            GameObject worldManer = Object.Instantiate(prefab, playerInitialPoint, Quaternion.identity);   
+            _worldManager = worldManer;
+            //_worldManager.GetComponent<InfiniteWorld>().InitPlayer();
+            
+        }
 
      
 
@@ -92,6 +104,7 @@ namespace Infrastructure.Factory
             playerController.Construct(health);
             
             _gameManager.GetComponent<GameManager>().InitPlayer(_playerGameObject);
+            _worldManager.GetComponent<InfiniteWorld>().InitPlayer(_playerGameObject.transform);
 
             return _playerGameObject;
         }

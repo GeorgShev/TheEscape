@@ -23,6 +23,7 @@ namespace Infrastructure.Factory
         Task WarmUp();
         Task CreateLevelGate(Vector3 position, Quaternion rotation, GateTypeId gateTypeId);
         Task CreateGameManager();
+        Task CreateWorldManager(Vector3 playerInitialPoint);
         Task<GameObject> CreateEnemy(EnemyTypeId enemyTypeId);
     }
 }

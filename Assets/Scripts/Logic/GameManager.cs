@@ -7,10 +7,13 @@ namespace Logic
     {
         private GameObject _spawnPoint;
         private GameObject _player;
+        private WaveManager _waveManager;
 
         public void InitSpawner(GameObject spawnPoint)
         {
             _spawnPoint = spawnPoint;
+            _waveManager = _spawnPoint.GetComponent<WaveManager>();
+            _waveManager.StartAfterInitPlayer();
         }
 
         public void InitPlayer(GameObject player)
@@ -23,12 +26,12 @@ namespace Logic
 
         private void PlayerKnocked()
         {
-            _spawnPoint.GetComponent<WaveManager>().RefreshWaves();
+            _waveManager.RefreshWaves();
         }
 
         private void PlayerRecovered()
         {
-            _spawnPoint.GetComponent<WaveManager>().ResumeAfterRefresh();
+            _waveManager.ResumeAfterRefresh();
         }
     }
 }

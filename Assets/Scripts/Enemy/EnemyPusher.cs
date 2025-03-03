@@ -7,7 +7,7 @@ namespace Enemy
     {
         private const string EnemyTag = "Enemy";
         private const string PlayerTag = "Player";
-        private const string EnviromentTag = "Enviroment";
+        private const string EnviromentTag = "DestructibleEnviroment";
         
         private void OnCollisionEnter(Collision objectCollision)
         {

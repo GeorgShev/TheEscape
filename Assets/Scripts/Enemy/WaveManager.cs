@@ -15,12 +15,12 @@ public class WaveManager : MonoBehaviour
     public float waveDifficultyMultiplier = 1.2f;
     public float spawnAreaPadding = 1f;
 
-    private int currentWave = 0;
-    private int enemiesRemainingInWave;
-    private bool isSpawningWave = false;
-    private bool isPaused = false;
+    private int _currentWave = 0;
+    private int _enemiesRemainingInWave;
+    private bool _isSpawningWave = false;
+    private bool _isPaused = false;
 
-    private void Start()
+    public void StartAfterInitPlayer()
     {
        Invoke("StartingWavesAfterDelay", 3f); 
     }
@@ -35,18 +35,18 @@ public class WaveManager : MonoBehaviour
         while (true) 
         {
             
-            if (isPaused) 
+            if (_isPaused) 
             {
                 yield return null;
                 continue;
             }
             
-            currentWave++;
-            Debug.Log($"Wave {currentWave} started!");
+            _currentWave++;
+            Debug.Log($"Wave {_currentWave} started!");
 
             
-            int enemiesInWave = Mathf.RoundToInt(initialEnemiesPerWave * Mathf.Pow(waveDifficultyMultiplier, currentWave - 1));
-            enemiesRemainingInWave = enemiesInWave;
+            int enemiesInWave = Mathf.RoundToInt(initialEnemiesPerWave * Mathf.Pow(waveDifficultyMultiplier, _currentWave - 1));
+            _enemiesRemainingInWave = enemiesInWave;
 
             
             StartCoroutine(SpawnWave(enemiesInWave));
@@ -58,7 +58,7 @@ public class WaveManager : MonoBehaviour
 
     IEnumerator SpawnWave(int enemiesToSpawn)
     {
-        isSpawningWave = true;
+        _isSpawningWave = true;
 
         while (enemiesToSpawn > 0)
         {
@@ -74,7 +74,7 @@ public class WaveManager : MonoBehaviour
             yield return new WaitForSeconds(spawnDelay);
         }
 
-        isSpawningWave = false;
+        _isSpawningWave = false;
     }
     void SpawnEnemy()
     {
@@ -90,11 +90,11 @@ public class WaveManager : MonoBehaviour
     
     public void PauseWaves()
     {
-        isPaused = true;
+        _isPaused = true;
     }
     public void ResumeAfterPause()
     {
-        isPaused = false;
+        _isPaused = false;
     }
     
     public void ResumeAfterRefresh()
@@ -105,7 +105,7 @@ public class WaveManager : MonoBehaviour
 
     public void RefreshWaves()
     {
-        isPaused = true;
+        _isPaused = true;
         HideAllEnemies();
         //StopCoroutine(StartWaves());
         
