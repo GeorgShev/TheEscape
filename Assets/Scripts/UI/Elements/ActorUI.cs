@@ -1,33 +1,37 @@
-﻿using System;
-using Logic;
-using TMPro;
+﻿using Logic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace UI.Elements
 {
     public class ActorUI : MonoBehaviour
     {
-        public HpBar HpBar;
+        public HpBar hpBar;
+        public PointCounter pointCounter;
         //public TextMeshProUGUI TextMeshProUGUI;
 
         private IHealth _heroHealth;
-
 
 
         public void Construct(IHealth health)
         {
             _heroHealth = health;
             UpdateHpBar();
-            HpBar.gameObject.SetActive(true);
+            hpBar.gameObject.SetActive(true);
             _heroHealth.HealthChanged += UpdateHpBar;
         }
 
-       
+        public void UpdatePointCounter(int point)
+        {
+            pointCounter.UpdateCounter(point);
+        }
+
 
         private void Awake()
         {
-            HpBar.gameObject.SetActive(false);
+            hpBar.gameObject.SetActive(false);
         }
+
         private void OnDestroy()
         {
             if (_heroHealth != null)
@@ -38,15 +42,13 @@ namespace UI.Elements
 
         private void UpdateHpBar()
         {
-            HpBar.SetValue(_heroHealth.CurrentHP, _heroHealth.MaxHP);
+            hpBar.SetValue(_heroHealth.CurrentHP, _heroHealth.MaxHP);
             /*if(TextMeshProUGUI != null)
             {
                 TextMeshProUGUI.SetText(_heroHealth.CurrentHP.ToString());
             }*/
-            
         }
-
         
-
+        
     }
 }

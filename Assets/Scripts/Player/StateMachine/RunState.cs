@@ -27,6 +27,7 @@ namespace Player.StateMachine
 
         public override void Update()
         {
+            // use UniTusk
             _currentInputVector =  Vector2.SmoothDamp(_currentInputVector, _inputService.Axis, ref _smoothInputVelocity, _smoothInputSpeed);
             Vector3 movementvector = new Vector3(_currentInputVector.x, 0, _currentInputVector.y);
 
@@ -44,7 +45,6 @@ namespace Player.StateMachine
             //need refacrotinf
             _inputService = AllServices.Container.Single<IInputService>();
             Player.Animator.CrossFade(_animationNames.RunHash, 0.1f);
-            Debug.LogError(("run entered"));
         }
 
         public override void Exit()

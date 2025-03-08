@@ -31,8 +31,6 @@ namespace Player.StateMachine
             
             
             _characterController.Move(Player.transform.forward * _dashRange);
-            
-            Debug.LogError(("dash entered"));
         }
 
         public override void Exit()

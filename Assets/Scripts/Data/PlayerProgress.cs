@@ -8,14 +8,16 @@ namespace Data
     public class PlayerProgress
     {
         public WorldData WorldData;
-        [FormerlySerializedAs("HeroState")] public State PlayerState;
+        public State PlayerState;
         public Stats HeroStats;
+        public ScoreData ScoreData;
 
         public PlayerProgress(string initialLevel)
         {
             WorldData = new WorldData(initialLevel);
             PlayerState = new State();
             HeroStats = new Stats();
+            ScoreData = new ScoreData();
         }
 
         

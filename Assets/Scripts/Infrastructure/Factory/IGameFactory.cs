@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Enemy;
+using Logic;
 using Services;
 using Services.PersistentProgressService;
 using StaticData;
@@ -18,11 +19,11 @@ namespace Infrastructure.Factory
         Task<GameObject> CreateHud();
         Task<GameObject> CreateMenu();
         Task<LootPiece> CreateLoot();
-        Task CreateSpawner(string spawnerId,Vector3 position, EnemyTypeId enemyTypeId);
+        Task CreateSpawner(string spawnerId,Vector3 position, EnemyTypeId enemyTypeId, GameManager gameManager);
         void Cleanup();
         Task WarmUp();
         Task CreateLevelGate(Vector3 position, Quaternion rotation, GateTypeId gateTypeId);
-        Task CreateGameManager();
+        Task<GameObject> CreateGameManager();
         Task CreateWorldManager(Vector3 playerInitialPoint);
         Task<GameObject> CreateEnemy(EnemyTypeId enemyTypeId);
     }

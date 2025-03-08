@@ -1,4 +1,3 @@
-using Logic;
 using UnityEngine;
 
 namespace Player.StateMachine
@@ -23,8 +22,6 @@ namespace Player.StateMachine
             Player.GetComponent<PlayerController>().KnockbackAction?.Invoke();
             Player.GetComponent<PlayerHealth>().enabled = false;
             Player.GetComponent<AbilityHolder>().enabled = false;
-            
-            Debug.LogError(("knock entered"));
 
             _skinnedMeshRenderer = Player.GetComponentInChildren<SkinnedMeshRenderer>();
         }

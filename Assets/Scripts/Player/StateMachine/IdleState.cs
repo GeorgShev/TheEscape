@@ -13,7 +13,6 @@ namespace Player.StateMachine
         public override void Enter()
         {
             Player.Animator.CrossFade(_animationNames.IdleHash, 0.1f);
-            Debug.LogError(("idle entered"));
         }
 
         public override void Exit()

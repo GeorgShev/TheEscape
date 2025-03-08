@@ -95,20 +95,20 @@ namespace Infrastructure.State
             else
             {
                 await InitGate(levelStaticData);
-                await InitGameManager();
+                GameObject gameManager = await InitGameManager();
                 await InitWorldManager(levelStaticData);
                 //await InitLootPieces();
-                GameObject hero = await InitPlayer(levelStaticData);
-                await InitSpawners(levelStaticData);
-                await InitHud(hero, levelStaticData);
-                CameraFollow(hero);
+                GameObject player = await InitPlayer(levelStaticData);
+                await InitSpawners(levelStaticData, gameManager);
+                await InitHud(player, levelStaticData);
+                CameraFollow(player);
             }
 
         }
 
-        private async Task InitGameManager()
+        private async Task <GameObject>  InitGameManager()
         {
-            await _gameFactory.CreateGameManager();
+            return await _gameFactory.CreateGameManager();
         }
 
         private async Task InitWorldManager(LevelStaticData levelStaticData)
@@ -124,12 +124,13 @@ namespace Infrastructure.State
             }
         }
 
-        private async Task InitSpawners(LevelStaticData levelStaticData)
+        private async Task InitSpawners(LevelStaticData levelStaticData, GameObject gameManager)
         {
-
+            //refactoring need only one spawn point
             foreach(EnemySpawnerStaticData enemySpawnerData in levelStaticData.EnemySpawnerData)
             {
-               await _gameFactory.CreateSpawner(enemySpawnerData.Id, enemySpawnerData.Position, enemySpawnerData.EnemyTypeId);
+               await _gameFactory.CreateSpawner(enemySpawnerData.Id, enemySpawnerData.Position, enemySpawnerData.EnemyTypeId, gameManager.GetComponent<GameManager>());
+               
             }
         }
 

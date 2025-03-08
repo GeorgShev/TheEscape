@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Logic;
 using UnityEngine;
 
 namespace Enemy
@@ -8,6 +9,13 @@ namespace Enemy
     {
         public EnemyHealth Health;
         public GameObject DeathFx;
+        
+        private GameManager _gameManager;
+
+        public void Construct(GameManager gameManager)
+        {
+            _gameManager = gameManager;
+        }
 
         public event Action Happened;
 
@@ -50,6 +58,8 @@ namespace Enemy
         private IEnumerator DestroyTimer()
         {
             yield return new WaitForSeconds(.1f);
+            //added score to enemy data
+            _gameManager.AddedScore(10);
             gameObject.SetActive(false);
         }
     }

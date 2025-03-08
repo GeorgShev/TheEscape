@@ -15,11 +15,13 @@ namespace Logic.EnemySpawners
         private IGameFactory _gameFactory;
         private EnemyDeath _enemyDeath;
         private EnemyStaticData _enemyStaticData;
+        private GameManager _gameManager;
 
 
-        public void Construct(IGameFactory gameFactory)
+        public void Construct(IGameFactory gameFactory, GameManager gameManager)
         {
             _gameFactory = gameFactory;
+            _gameManager = gameManager;
             Spawn();
         }
 
@@ -36,6 +38,7 @@ namespace Logic.EnemySpawners
             for (int i = 0; i < EnemyPool.poolSize; i++)
             {
                 GameObject enemy = await _gameFactory.CreateEnemy(EnemyTypeId);
+                enemy.GetComponent<EnemyDeath>().Construct(_gameManager);
                 EnemyPool.FillList(enemy);
             }
             

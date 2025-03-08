@@ -14,9 +14,9 @@ using Services.PersistentProgressService;
 using Services.Randomizer;
 using Services.StaticDataService;
 using StaticData;
+using UI.Elements;
 using UI.Menu;
 using UI.Services.Windows;
-using Unity.VisualScripting;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -68,11 +68,12 @@ namespace Infrastructure.Factory
         }
 
 
-        public async Task CreateGameManager()
+        public async Task<GameObject> CreateGameManager()
         {
             GameObject prefab = await _assetsProvider.Load<GameObject>(AssetsAddress.GameManager);
             GameObject gameManager = Object.Instantiate(prefab, new Vector3(0,0,0), Quaternion.identity);   
             _gameManager = gameManager;
+            return _gameManager;
         }
         
         public async Task CreateWorldManager(Vector3 playerInitialPoint)
@@ -120,6 +121,7 @@ namespace Infrastructure.Factory
             {
                 openWindowButton.Construct(_windowService);
             }
+            _gameManager.GetComponent<GameManager>().InitHud(_hud.GetComponent<ActorUI>());
 
             return _hud;
         }
@@ -183,14 +185,14 @@ namespace Infrastructure.Factory
         }
       
 
-        public async Task  CreateSpawner(string spawnerId, Vector3 position, EnemyTypeId enemyTypeId)
+        public async Task  CreateSpawner(string spawnerId, Vector3 position, EnemyTypeId enemyTypeId, GameManager gameManager)
         {
             GameObject prefab = await _assetsProvider.Load<GameObject>(AssetsAddress.Spawner);
 
             GameObject spawner = InstantiateRegistered(prefab, position);
             SpawnPoint spawnPoint = spawner.GetComponent<SpawnPoint>();
-
-            spawnPoint.Construct(this);
+            
+            spawnPoint.Construct(this, gameManager);
             spawnPoint.Id = spawnerId;
             spawnPoint.EnemyTypeId = enemyTypeId;
             EnemyStaticData enemyStaticData = _staticDataService.ForEnemy(enemyTypeId);

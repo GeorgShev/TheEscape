@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 717669400083382442}
-  - component: {fileID: 2438770002542060726}
   - component: {fileID: -5762141311517287409}
+  - component: {fileID: 2700403045811676366}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -33,20 +33,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2438770002542060726
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5699894859745971362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d8be7466546bd54bb27c83efab31250, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SpawnPoints: []
-  _gate: {fileID: 0}
 --- !u!114 &-5762141311517287409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57,5 +43,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4954d3956e0e9be4c916f33d513d8ee5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: {fileID: 2700403045811676366}
+--- !u!114 &2700403045811676366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5699894859745971362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ca42e5a4ca24444d9c7338912dfcbb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
