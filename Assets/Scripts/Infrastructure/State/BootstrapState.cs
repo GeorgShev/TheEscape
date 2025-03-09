@@ -3,6 +3,7 @@ using Infrastructure.Factory;
 using Services;
 using Services.Ads;
 using Services.InputService;
+using Services.PauseService;
 using Services.PersistentProgressService;
 using Services.Randomizer;
 using Services.SaveLoad;
@@ -43,6 +44,7 @@ namespace Infrastructure.State
         {
             RegisterStaticDataService();
             RegisterAdsService();
+            RegisterPauseService();
 
             _services.RegisterSingle<IGameStateMachine>(_gameStateMachine);
             _services.RegisterSingle<IInputService>(InputService());
@@ -52,6 +54,7 @@ namespace Infrastructure.State
 
             _services.RegisterSingle<IUIFactory>(new UIFactory(_services.Single<IAssetProvider>(), 
                 _services.Single<IStaticDataService>(), 
+                _services.Single<IPauseService>(),
                 _services.Single<IPersistentProgressService>(),
                 _services.Single<IAdsService>(),
                 _services.Single<IGameStateMachine>()));
@@ -60,6 +63,7 @@ namespace Infrastructure.State
 
             _services.RegisterSingle<IGameFactory>(new GameFactory(_services.Single<IAssetProvider>(),
                 _services.Single<IInputService>(),
+                _services.Single<IPauseService>(),
                 _services.Single<IStaticDataService>(), 
                 _services.Single<IRandomService>(), 
                 _services.Single<IPersistentProgressService>(),
@@ -83,6 +87,13 @@ namespace Infrastructure.State
             IStaticDataService staticData = new StaticDataService();
             staticData.Load();
             _services.RegisterSingle(staticData);
+        }
+
+        private void RegisterPauseService()
+        {
+            IPauseService pauseService = new PauseService();
+            pauseService.SetPause(false);
+            _services.RegisterSingle(pauseService);
         }
 
 

@@ -151,7 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_StringReference:
     m_TableReference:
-      m_TableCollectionName: GUID:f683d903239ab204d93fa7e17435ca91
+      m_TableCollectionName: GUID:a2c599146766e3143bdff145d370ca6a
     m_TableEntryReference:
       m_KeyId: 519951703375872
       m_Key: 
@@ -406,7 +406,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_StringReference:
     m_TableReference:
-      m_TableCollectionName: GUID:f683d903239ab204d93fa7e17435ca91
+      m_TableCollectionName: GUID:a2c599146766e3143bdff145d370ca6a
     m_TableEntryReference:
       m_KeyId: 514642582732800
       m_Key: 
@@ -842,9 +842,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_StringReference:
     m_TableReference:
-      m_TableCollectionName: GUID:f683d903239ab204d93fa7e17435ca91
+      m_TableCollectionName: GUID:a2c599146766e3143bdff145d370ca6a
     m_TableEntryReference:
-      m_KeyId: 520213222424576
+      m_KeyId: 504633027231744
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -1094,7 +1094,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_StringReference:
     m_TableReference:
-      m_TableCollectionName: GUID:f683d903239ab204d93fa7e17435ca91
+      m_TableCollectionName: GUID:a2c599146766e3143bdff145d370ca6a
     m_TableEntryReference:
       m_KeyId: 520331019452416
       m_Key: 
@@ -1271,7 +1271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_StringReference:
     m_TableReference:
-      m_TableCollectionName: GUID:f683d903239ab204d93fa7e17435ca91
+      m_TableCollectionName: GUID:a2c599146766e3143bdff145d370ca6a
     m_TableEntryReference:
       m_KeyId: 520644736614400
       m_Key: 
@@ -1934,7 +1934,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_StringReference:
     m_TableReference:
-      m_TableCollectionName: GUID:f683d903239ab204d93fa7e17435ca91
+      m_TableCollectionName: GUID:a2c599146766e3143bdff145d370ca6a
     m_TableEntryReference:
       m_KeyId: 511582288510976
       m_Key: 
@@ -2154,7 +2154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7afb201f9b05b6b4bba908c578310808, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CloseButton: {fileID: 0}
+  CloseButton: {fileID: 9059708324520763351}
 --- !u!1 &7929841652996560594
 GameObject:
   m_ObjectHideFlags: 0

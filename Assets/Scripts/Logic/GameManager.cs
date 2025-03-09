@@ -1,6 +1,7 @@
 using System.Collections;
 using Enemy;
 using Player;
+using Services.PauseService;
 using UI.Elements;
 using UnityEngine;
 
@@ -16,13 +17,20 @@ namespace Logic
         private WaveManager _waveManager;
         private ActorUI _actorUI;
         private bool _isPaused;
+        private IPauseService _pauseService;
         
+        
+        public void Construct(IPauseService pauseService)
+        {
+            _pauseService = pauseService;
+        }
 
-        public void InitSpawner(GameObject spawnPoint)
+        public void InitSpawner(GameObject spawnPoint, IPauseService pauseService)
         {
             _spawnPoint = spawnPoint;
             _waveManager = _spawnPoint.GetComponent<WaveManager>();
             _waveManager.StartAfterInitPlayer();
+            _waveManager.Construct(_pauseService);
             Invoke(nameof(StartScoringCoroutine), 3f);
         }
 
@@ -68,7 +76,7 @@ namespace Logic
             float timer = 0f;   
             while (true)
             {
-                if (!_isPaused)
+                if (!_isPaused && !_pauseService.IsPaused)
                 {
                     
                     timer += Time.deltaTime;
@@ -86,6 +94,7 @@ namespace Logic
                 yield return null; 
             }
         }
+
         
     }
 }

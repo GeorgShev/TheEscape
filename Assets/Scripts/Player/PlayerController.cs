@@ -3,6 +3,7 @@ using Logic;
 using Player.StateMachine;
 using Services;
 using Services.InputService;
+using Services.PauseService;
 using UnityEngine;
 
 namespace Player
@@ -28,6 +29,7 @@ namespace Player
 
        
         private IInputService _inputService;
+        private IPauseService _pauseService;
         private StateMachine.StateMachine _stateMachine;
         private IHealth _health;
         private RunState _runState;
@@ -38,9 +40,10 @@ namespace Player
         
         private bool _isDead;
 
-        public void Construct(IHealth health)
+        public void Construct(IHealth health, IPauseService pauseService)
         {
             _health = health;
+            _pauseService = pauseService;
             HealthChangedSubscribe();
             
         }
@@ -66,6 +69,11 @@ namespace Player
 
         private void Update()
         {
+            if (_pauseService != null && _pauseService.IsPaused)
+            {
+                return;
+            }
+            
             _stateMachine.CurrentState?.Update();
             ChangeState();
         }

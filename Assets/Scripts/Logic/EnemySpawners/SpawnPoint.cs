@@ -41,11 +41,6 @@ namespace Logic.EnemySpawners
                 enemy.GetComponent<EnemyDeath>().Construct(_gameManager);
                 EnemyPool.FillList(enemy);
             }
-            
-            
-           //GameObject enemy = await _gameFactory.CreateEnemy(EnemyTypeId, transform);
-            //_enemyDeath = enemy.GetComponent<EnemyDeath>();
-            //_enemyDeath.Happened += Slay;
         }
 
         private void Slay()

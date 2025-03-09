@@ -1,5 +1,7 @@
 using System.Collections;
 using Logic;
+using Services.PauseService;
+using UI.Services.Windows;
 using UnityEngine;
 
 namespace Enemy
@@ -18,7 +20,14 @@ namespace Enemy
         private int _enemiesRemainingInWave;
         private bool _isSpawningWave = false;
         private bool _isPaused = false;
+        private IPauseService _pauseService;
 
+
+        public void Construct(IPauseService pauseService)
+        {
+            _pauseService = pauseService;
+        }
+        
         public void StartAfterInitPlayer()
         {
             Invoke(nameof(StartingWavesAfterDelay), 3f); 
@@ -34,11 +43,7 @@ namespace Enemy
             while (true) 
             {
             
-                if (_isPaused) 
-                {
-                    yield return null;
-                    continue;
-                }
+                yield return new WaitWhile(() => _isPaused || _pauseService.IsPaused);
             
                 _currentWave++;
                 Debug.Log($"Wave {_currentWave} started!");
@@ -51,7 +56,15 @@ namespace Enemy
                 StartCoroutine(SpawnWave(enemiesInWave));
 
            
-                yield return new WaitForSeconds(timeBetweenWaves);
+                float timer = 0f;
+                while (timer < timeBetweenWaves)
+                {
+                    if (!_isPaused && !_pauseService.IsPaused)
+                    {
+                        timer += Time.deltaTime;
+                    }
+                    yield return null;
+                }
             }
         }
 
@@ -61,7 +74,8 @@ namespace Enemy
 
             while (enemiesToSpawn > 0)
             {
-            
+                yield return new WaitWhile(() => _isPaused || _pauseService.IsPaused);
+                
                 if (enemyPool.GetActiveEnemyCount() < enemyPool.poolSize)
                 {
                     SpawnEnemy();
@@ -70,7 +84,16 @@ namespace Enemy
 
             
                 float spawnDelay = spawnRateCurve.Evaluate(Time.time / 60f); 
-                yield return new WaitForSeconds(spawnDelay);
+                float timer = 0f;
+                
+                while (timer < spawnDelay)
+                {
+                    if (!_isPaused && !_pauseService.IsPaused)
+                    {
+                        timer += Time.deltaTime;
+                    }
+                    yield return null;
+                }
             }
 
             _isSpawningWave = false;

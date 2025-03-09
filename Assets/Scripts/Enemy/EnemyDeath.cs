@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Logic;
+using Services.PauseService;
 using UnityEngine;
 
 namespace Enemy
@@ -11,10 +12,16 @@ namespace Enemy
         public GameObject DeathFx;
         
         private GameManager _gameManager;
+        private IPauseService _pauseService;
 
         public void Construct(GameManager gameManager)
         {
             _gameManager = gameManager;
+        }
+
+        public void InitPauseService(IPauseService pauseService)
+        {
+            _pauseService = pauseService;
         }
 
         public event Action Happened;
@@ -57,10 +64,24 @@ namespace Enemy
 
         private IEnumerator DestroyTimer()
         {
-            yield return new WaitForSeconds(.1f);
-            //added score to enemy data
-            _gameManager.AddedScore(10);
-            gameObject.SetActive(false);
+            float delay = 0.1f;
+            float timer = 0f;
+
+            while (timer < delay)
+            {
+                if (!_pauseService.IsPaused)
+                {
+                    timer += Time.deltaTime;
+                }
+
+                yield return null;
+            }
+            
+            Debug.Log("EnemyDeath");
+                //added score to enemy data
+                _gameManager.AddedScore(5);
+                gameObject.SetActive(false);
+            
         }
     }
 }

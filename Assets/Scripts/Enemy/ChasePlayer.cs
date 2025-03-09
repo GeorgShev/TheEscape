@@ -1,31 +1,52 @@
+using Services.PauseService;
 using UnityEngine;
 
 namespace Enemy
 {
     public class ChasePlayer : MonoBehaviour
     {
-        public float moveSpeed = 5f; // Скорость движения
+        public float moveSpeed = 5f; 
         public float accelerationForce = 10f;
-        public float rotationSpeed = 100f; // Скорость поворота
-        public float maxSpeed = 10f; // Максимальная скорость
+        public float rotationSpeed = 100f; 
+        public float maxSpeed = 10f;
         public float brakeForce = 20f;
-        private Transform _player; // Цель (персонаж)
-        private Rigidbody rb;
-        private bool isBraking = false;
-        public void Construct(GameObject player)
+        private Transform _player; 
+        private Rigidbody _rigidbody;
+        private bool _isBraking;
+        private IPauseService _pauseService;
+        private bool _setPaused;
+        private Vector3 _linearVelocity;
+        
+        
+        
+        public void Construct(GameObject player, IPauseService pauseService)
         {
             _player = player.transform;
+            _pauseService = pauseService;
         }
 
         void Awake()
         {
-            rb = GetComponent<Rigidbody>();
+            _rigidbody = GetComponent<Rigidbody>();
 
         }
 
         void FixedUpdate()
         {
-            if (_player == null) return;
+            if (_pauseService != null && _pauseService.IsPaused)
+            {
+                SetPaused();
+                return;
+            }
+            else
+            {
+                ResumeFromPause();
+            }
+
+            if (!_player)
+            {
+                return;
+            }
 
             
             Vector3 direction = (_player.position - transform.position).normalized;
@@ -36,6 +57,29 @@ namespace Enemy
 
            
             MoveOrBrake(direction);
+        }
+
+        private void SetPaused()
+        {
+            if (!_setPaused)
+            {
+                _setPaused = true;
+                _linearVelocity = _rigidbody.linearVelocity;
+                _rigidbody.isKinematic = true;
+                _rigidbody.linearVelocity = Vector3.zero;
+            }
+            
+            
+        }
+
+        private void ResumeFromPause()
+        {
+            if (_setPaused)
+            {
+                _setPaused = false;
+                _rigidbody.isKinematic = false;
+                _rigidbody.linearVelocity = _linearVelocity;
+            }
         }
 
         void RotateTowardsPlayer(Vector3 direction)
@@ -51,8 +95,8 @@ namespace Enemy
 
             if (angle < 90f)
             {
-                rb.AddForce(transform.forward * accelerationForce, ForceMode.Acceleration);
-                isBraking = false;
+                _rigidbody.AddForce(transform.forward * accelerationForce, ForceMode.Acceleration);
+                _isBraking = false;
             }
             else 
             {
@@ -60,18 +104,18 @@ namespace Enemy
             }
 
             
-            if (rb.linearVelocity.magnitude > maxSpeed)
+            if (_rigidbody.linearVelocity.magnitude > maxSpeed)
             {
-                rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
+                _rigidbody.linearVelocity = _rigidbody.linearVelocity.normalized * maxSpeed;
             }
         }
 
         void Brake()
         {
-            if (!isBraking)
+            if (!_isBraking)
             {
-                rb.AddForce(-rb.linearVelocity.normalized * brakeForce, ForceMode.Acceleration);
-                isBraking = true;
+                _rigidbody.AddForce(-_rigidbody.linearVelocity.normalized * brakeForce, ForceMode.Acceleration);
+                _isBraking = true;
             }
         }
     }

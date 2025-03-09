@@ -10,6 +10,7 @@ using Logic.Gates;
 using Logic.Scene;
 using Player;
 using Services.InputService;
+using Services.PauseService;
 using Services.PersistentProgressService;
 using Services.Randomizer;
 using Services.StaticDataService;
@@ -31,6 +32,7 @@ namespace Infrastructure.Factory
 
         private readonly IAssetProvider _assetsProvider;
         private readonly IInputService _inputService;
+        private readonly IPauseService _pauseService;
         private readonly IStaticDataService _staticDataService;
         private readonly IRandomService _randomService;
         private readonly IPersistentProgressService _persistentProgressService;
@@ -46,6 +48,7 @@ namespace Infrastructure.Factory
 
         public GameFactory(IAssetProvider assetsProvider,
             IInputService inputService,
+            IPauseService pauseService,
             IStaticDataService staticDataService,
             IRandomService randomService,
             IPersistentProgressService persistentProgressService,
@@ -54,6 +57,7 @@ namespace Infrastructure.Factory
         {
             _assetsProvider = assetsProvider;
             _inputService = inputService;
+            _pauseService = pauseService;
             _staticDataService = staticDataService;
             _randomService = randomService;
             _persistentProgressService = persistentProgressService;
@@ -73,6 +77,7 @@ namespace Infrastructure.Factory
             GameObject prefab = await _assetsProvider.Load<GameObject>(AssetsAddress.GameManager);
             GameObject gameManager = Object.Instantiate(prefab, new Vector3(0,0,0), Quaternion.identity);   
             _gameManager = gameManager;
+            _gameManager.GetComponent<GameManager>().Construct(_pauseService);
             return _gameManager;
         }
         
@@ -102,7 +107,7 @@ namespace Infrastructure.Factory
             heroDeath.Construct(_gameStateMachine, _windowService, _persistentProgressService);
             
             PlayerController playerController = _playerGameObject.GetComponent<PlayerController>();
-            playerController.Construct(health);
+            playerController.Construct(health, _pauseService);
             
             _gameManager.GetComponent<GameManager>().InitPlayer(_playerGameObject);
             _worldManager.GetComponent<InfiniteWorld>().InitPlayer(_playerGameObject.transform);
@@ -170,11 +175,14 @@ namespace Infrastructure.Factory
             GameObject enemy = Object.Instantiate(prefab);
 
             ChasePlayer chasePlayer = enemy.GetComponent<ChasePlayer>();
-            chasePlayer.Construct(_playerGameObject);
+            chasePlayer.Construct(_playerGameObject, _pauseService);
             IHealth health = enemy.GetComponent<IHealth>();
             health.CurrentHP = monsterStaticData.Hp;
             health.MaxHP = monsterStaticData.Hp;
             health.TextPrefab = await _assetsProvider.Load<GameObject>(AssetsAddress.HpText);
+
+            EnemyDeath enemyDeath = enemy.GetComponent<EnemyDeath>();
+            enemyDeath.InitPauseService(_pauseService);
 
             /*LootSpawner lootSpawner = enemy.GetComponentInChildren<LootSpawner>();
             lootSpawner.SetLoot(monsterStaticData.MinLoot, monsterStaticData.MaxLoot);
@@ -199,7 +207,7 @@ namespace Infrastructure.Factory
             EnemyPool enemyPool = spawner.GetComponent<EnemyPool>();
             enemyPool.Construct(_playerGameObject,enemyStaticData);
             
-            _gameManager.GetComponent<GameManager>().InitSpawner(spawner);
+            _gameManager.GetComponent<GameManager>().InitSpawner(spawner, _pauseService);
         }
         
         

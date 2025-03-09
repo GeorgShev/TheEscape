@@ -1,4 +1,7 @@
+using System;
 using Infrastructure.State;
+using Services;
+using Services.PauseService;
 using UI.Services.Windows;
 using UnityEngine;
 
@@ -13,13 +16,20 @@ namespace UI.Windows.Menu
         private ReturnToMainMenu _returnMainMenu;
         private RestartLevel _restartLevel;
 
+        private IPauseService _pauseService;
 
-        public void Construct(IGameStateMachine gameStateMachine, IWindowService windowService)
+
+        public void Construct(IGameStateMachine gameStateMachine, IWindowService windowService, IPauseService pauseService)
         {
             _gameStateMachine = gameStateMachine;
             _windowService = windowService;
             _returnMainMenu = GetComponentInChildren<ReturnToMainMenu>();
             _restartLevel = GetComponentInChildren<RestartLevel>();
+            //need refactoring
+            _pauseService = pauseService;
+            
+            _pauseService.SetPause(true);
+            Debug.Log("SetPause");
 
 
             SendLinks();
@@ -37,15 +47,9 @@ namespace UI.Windows.Menu
                 _restartLevel.Construct(_gameStateMachine);
             }
         }
-
-
-        //Need custom pause service
         private void OnDestroy()
         {
-            if (Time.timeScale == 0)
-            {
-                Time.timeScale = 1;
-            }
+            _pauseService.SetPause(false);
         }
     }
 }

@@ -2,6 +2,7 @@
 using Infrastructure.AssetManagement;
 using Infrastructure.State;
 using Services.Ads;
+using Services.PauseService;
 using Services.PersistentProgressService;
 using Services.StaticDataService;
 using StaticData;
@@ -21,18 +22,21 @@ namespace UI.Services.Factory
         private readonly IStaticDataService _staticDataService;
         private readonly IPersistentProgressService _persistantProgressService;
         private readonly IAdsService _adsService;
+        private readonly IPauseService _pauseService;
         private readonly IGameStateMachine _gameStateMachine;
 
         private Transform _uiRoot;
 
         public UIFactory(IAssetProvider assetProvider,
             IStaticDataService staticDataService,
+            IPauseService pauseService,
             IPersistentProgressService persistantProgressService,
             IAdsService adsService,
             IGameStateMachine gameStateMachine)
         {
             _assetProvider = assetProvider;
             _staticDataService = staticDataService;
+            _pauseService = pauseService;
             _persistantProgressService = persistantProgressService;
             _adsService = adsService;
             _gameStateMachine = gameStateMachine;
@@ -56,7 +60,7 @@ namespace UI.Services.Factory
         {
             WindowStaticData config = _staticDataService.ForWindow(WindowId.PauseMenu);
             PauseMenu pauseMenu = Object.Instantiate(config.Prefab, _uiRoot) as PauseMenu;
-            pauseMenu.Construct(_gameStateMachine, windowService);
+            pauseMenu.Construct(_gameStateMachine, windowService, _pauseService);
             windowService.PauseMenu = pauseMenu;
         }
 
