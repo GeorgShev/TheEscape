@@ -115,8 +115,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b8706fcd8b9acb408240e5f59d998d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHP: 0
-  maxHP: 0
 --- !u!114 &1338461314139885049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,6 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4bffab7522555341a4c14683be89aaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rigidbody: {fileID: 7964633506361861889}
 --- !u!1001 &8998114480750892696
 PrefabInstance:
   m_ObjectHideFlags: 0

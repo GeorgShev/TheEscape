@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 88398236135678023}
   m_Layer: 8
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: DestructibleEnviroment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -117,6 +117,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3687623827499562390}
+  - component: {fileID: -3095644596098457810}
   m_Layer: 8
   m_Name: EnvObject2
   m_TagString: DestructibleEnviroment
@@ -140,3 +141,15 @@ Transform:
   - {fileID: 4955734561335494898}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-3095644596098457810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3582145675326303981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e83aa07efed9ce14f9b014fc9614bb32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

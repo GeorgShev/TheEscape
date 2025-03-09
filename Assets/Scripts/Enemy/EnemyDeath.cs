@@ -76,8 +76,6 @@ namespace Enemy
 
                 yield return null;
             }
-            
-            Debug.Log("EnemyDeath");
                 //added score to enemy data
                 _gameManager.AddedScore(5);
                 gameObject.SetActive(false);

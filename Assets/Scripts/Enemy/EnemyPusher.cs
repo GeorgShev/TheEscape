@@ -1,13 +1,17 @@
 using Logic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Enemy
 {
     public class EnemyPusher : MonoBehaviour
     {
+        public Rigidbody rigidbody;
+        
         private const string EnemyTag = "Enemy";
         private const string PlayerTag = "Player";
         private const string EnviromentTag = "DestructibleEnviroment";
+        
         
         private void OnCollisionEnter(Collision objectCollision)
         {
@@ -25,6 +29,12 @@ namespace Enemy
             else if (objectCollision.gameObject.CompareTag(PlayerTag))
             {
                 objectCollision.gameObject.GetComponent<IHealth>()?.TakeDamage(1, Color.white);
+            }
+            else if (objectCollision.gameObject.CompareTag(EnviromentTag))
+            {
+                objectCollision.gameObject.GetComponentInParent<DestructibleObjects>().DestroyObject();
+                
+                rigidbody.linearVelocity = Vector3.zero;
             }
             
         }

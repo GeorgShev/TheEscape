@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2334546078223934579}
   m_Layer: 8
   m_Name: Cylinder
-  m_TagString: Untagged
+  m_TagString: DestructibleEnviroment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -119,6 +119,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7028176396933155888}
+  - component: {fileID: 8394340691240407641}
   m_Layer: 8
   m_Name: EnvObject1
   m_TagString: DestructibleEnviroment
@@ -142,3 +143,15 @@ Transform:
   - {fileID: 8845134855785833965}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8394340691240407641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7069599370585719835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e83aa07efed9ce14f9b014fc9614bb32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
