@@ -29,7 +29,6 @@ namespace UI.Windows.Menu
             _pauseService = pauseService;
             
             _pauseService.SetPause(true);
-            Debug.Log("SetPause");
 
 
             SendLinks();

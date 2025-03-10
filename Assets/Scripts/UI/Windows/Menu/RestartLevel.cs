@@ -1,14 +1,11 @@
-using Data;
 using Infrastructure.State;
 using Services;
-using Services.PersistentProgressService;
-using Services.SaveLoad;
 using UI.Services.Windows;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace UI.Windows.Menu
 {
-
     public class RestartLevel : WindowBase
     {
         public Button Button;
@@ -25,10 +22,6 @@ namespace UI.Windows.Menu
 
         private IGameStateMachine _gameStateMachine;
 
-        private ISaveLoadService _saveLoadService;
-
-        private IPersistentProgressService _persistentProgressService;
-
 
         public void Construct(IGameStateMachine gameStateMachine)
         {
@@ -37,21 +30,12 @@ namespace UI.Windows.Menu
 
         private void Awake()
         {
-            _saveLoadService = AllServices.Container.Single<ISaveLoadService>();
-            _persistentProgressService = AllServices.Container.Single<IPersistentProgressService>();
             _windowService = AllServices.Container.Single<IWindowService>();
 
             Button.onClick.AddListener(ClickStart);
         }
 
-        private void Start()
-        {
-            if (_persistentProgressService.Progress.WorldData.PositionOnLevel.SavedLevel == "MainMenu")
-            {
-                gameObject.SetActive(false);
-            }
-        }
-
+      
         public void ClickStart()
         {
             CreateChoiseWindow();
@@ -74,12 +58,10 @@ namespace UI.Windows.Menu
 
         public void Confirm()
         {
-
-            _persistentProgressService.Progress = _saveLoadService.LoadProgress() ?? NewProgress();
-
-            _gameStateMachine.Enter<LoadLevelState, string>(_persistentProgressService.Progress.WorldData.PositionOnLevel.SavedLevel);
-
-
+            
+            SceneManager.LoadScene("Level1");
+            
+            _gameStateMachine.Enter<LoadLevelState, string>("Level1");
         }
 
         public void DestroyWindow()
@@ -87,12 +69,6 @@ namespace UI.Windows.Menu
             _windowService.ChoiceWindow.Choice1 -= Cancel;
             _windowService.ChoiceWindow.Choice2 -= Confirm;
             _windowService.ChoiceWindow.DestroyWindow -= DestroyWindow;
-        }
-
-        public PlayerProgress NewProgress()
-        {
-            var progress = new PlayerProgress(initialLevel: _mainMenu);
-            return progress;
         }
     }
 }

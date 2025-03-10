@@ -1,14 +1,12 @@
-using System;
-using Data;
 using Services;
 using Services.InputService;
-using Services.PersistentProgressService;
+using Services.PauseService;
 using UI.Elements;
 using UnityEngine;
 
 namespace Player
 {
-    public class AbilityHolder : MonoBehaviour, ISavedProgress
+    public class AbilityHolder : MonoBehaviour
     {
         public float cooldownTime;
         public float activeTime;
@@ -23,11 +21,10 @@ namespace Player
         private float _pausedCooldownTime;
         private float _pausedActiveTime;
         private int _pausedIndexState;
-        private bool _saveAfterPause = false;
-        private bool _loadAfterPause = false;
         private AbilityState _pauseState;
         private AbilityUI _abilityUi;
         private IInputService _inputService;
+        private IPauseService _pauseService;
         public float _cooldownTime;
 
         public  enum AbilityState
@@ -35,6 +32,11 @@ namespace Player
             ready,
             active,
             cooldown
+        }
+        
+        public void Construct(IPauseService pauseService)
+        {
+            _pauseService = pauseService;
         }
 
         private void Awake()
@@ -52,18 +54,12 @@ namespace Player
 
         private void Update()
         {
-            //Need refactoring (custom pause?)
 
-            if (Time.timeScale == 0 && !_saveAfterPause)
+            if (_pauseService != null && _pauseService.IsPaused)
             {
-                SavePause();
-                return;
+                return; 
             }
-            else if (Time.timeScale != 0 && !_loadAfterPause)
-            {
-                LoadAfterPause();
-            }
-
+            
             _dashInput = _inputService.IsDashButtonUp();
 
             state = UpdateAbilityState(state, Time.deltaTime);
@@ -119,48 +115,6 @@ namespace Player
             return currentState;
         }
 
-
-
-
-        public void SavePause()
-        {
-            _pauseState = state;
-            _pausedCooldownTime = cooldownTime;
-            //_pausedIndexState = CurrentAbilityState;
-            _pausedActiveTime = activeTime;
-            _saveAfterPause = true;
-            _loadAfterPause = false;
-        }
-
-        public void LoadAfterPause()
-        {
-            state = _pauseState;
-            //CurrentAbilityState = _pausedIndexState;
-            _cooldownTime = _pausedCooldownTime;
-            activeTime = _pausedActiveTime;
-            _abilityUi?.AbilityButton.ButtonActive(activeTime);
-            _abilityUi?.AbilityButton.ButtoonCooldown(_cooldownTime, cooldownTime);
-
-
-            _saveAfterPause = false;
-            _loadAfterPause = true;
-        }
-
-        public void UpdateProgress(PlayerProgress progress)
-        {
-        }
-
-        public void LoadProgress(PlayerProgress progress)
-        {
-            RefreshAbility();
-        }
-
-
-        public void DeactivateAbility()
-        {
-            activeTime = 0;
-        }
-
         public void RefreshAbility()
         {
             activeTime = 0f;
@@ -176,5 +130,7 @@ namespace Player
                 _abilityUi.AbilityButton.ButtonReady();
             }
         }
+
+        
     }
 }

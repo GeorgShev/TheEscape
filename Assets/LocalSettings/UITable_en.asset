@@ -49,7 +49,7 @@ MonoBehaviour:
   - m_Id: 514642582732800
     m_Localized: 'Move (Keyboard) - W A S D
 
-      Acive ability - L Shift'
+      Dash(Keyboard) - Space'
     m_Metadata:
       m_Items: []
   - m_Id: 519951703375872
@@ -85,7 +85,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 524511880708096
-    m_Localized: conture
+    m_Localized: Conture
     m_Metadata:
       m_Items: []
   - m_Id: 524771566845952
@@ -130,6 +130,18 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 533687042342912
     m_Localized: click || to go to the pause menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5055791787966464
+    m_Localized: Restart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5083650820702208
+    m_Localized: If you restart this level, the current playthrough will end.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5083598442233856
+    m_Localized: Do you want to restart this level?
     m_Metadata:
       m_Items: []
   references:

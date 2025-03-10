@@ -109,6 +109,9 @@ namespace Infrastructure.Factory
             PlayerController playerController = _playerGameObject.GetComponent<PlayerController>();
             playerController.Construct(health, _pauseService);
             
+            AbilityHolder abilityHolder = _playerGameObject.GetComponent<AbilityHolder>();
+            abilityHolder.Construct(_pauseService);
+            
             _gameManager.GetComponent<GameManager>().InitPlayer(_playerGameObject);
             _worldManager.GetComponent<InfiniteWorld>().InitPlayer(_playerGameObject.transform);
 

@@ -27,17 +27,15 @@ namespace Assets.Scripts.UI.Elements
 
         private void Open()
         {
-            _windowService.Open(WindowId);
-
-            if(NeedPause)
+            if (WindowId == WindowId.PauseMenu && _windowService.PauseMenu != null)
             {
-                Time.timeScale = 0f;
+                Destroy(_windowService.PauseMenu.gameObject);
             }
-
-            if(WindowId == WindowId.LevelsMenu)
+            else
             {
-
+                _windowService.Open(WindowId);
             }
+            
 
             //Debug.Log(WindowId);
         }

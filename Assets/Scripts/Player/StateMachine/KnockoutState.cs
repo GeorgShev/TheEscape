@@ -6,7 +6,6 @@ namespace Player.StateMachine
     {
         
         private SkinnedMeshRenderer _skinnedMeshRenderer;
-        private bool isBlinking = false;
         private float timer = 0f;
         private bool isFirstFunctionRunning = true;
         public KnockoutState(PlayerController player, Animator animator) : base(player, animator)
