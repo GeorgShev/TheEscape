@@ -15,8 +15,10 @@ namespace Player
         public AbilityHolder AbilityHolder;
         public PlayerDeath PlayerDeath;
         public bool isKnockback;
+        public bool isDashing;
         public Action KnockbackAction;
         public Action RecoverAction;
+        public Material catMaterial;
         
 
         [SerializeField] private float smoothInputSpeed = .2f;
@@ -96,7 +98,7 @@ namespace Player
             {
                 _stateMachine.ChangeState(_deathState);
             }
-            else
+            else if(CanIdle())
             {
                 _stateMachine.ChangeState(_idleState);
             }
@@ -107,6 +109,7 @@ namespace Player
             bool canRun = (_inputService.Axis.sqrMagnitude > Constants.Elipson 
                            && AbilityHolder.state != AbilityHolder.AbilityState.active
                            && !Die() 
+                           && !Dashing() 
                            && !KnockedBack());
             
             return canRun;
@@ -120,10 +123,23 @@ namespace Player
             return canDash;
         }
 
+        private bool CanIdle()
+        {
+            bool canDash =( !Die() 
+                && !Dashing() 
+                && !KnockedBack());
+            return canDash;
+        }
+
         private bool KnockedBack()
         {
             bool canKnockback = isKnockback && !_isDead;
             return canKnockback;
+        }
+
+        private bool Dashing()
+        {
+            return isDashing;
         }
         
         private bool Die()

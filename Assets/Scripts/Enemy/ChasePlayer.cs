@@ -10,12 +10,14 @@ namespace Enemy
         public float rotationSpeed = 100f; 
         public float maxSpeed = 10f;
         public float brakeForce = 20f;
+        public bool isDissolved;
         private Transform _player; 
         private Rigidbody _rigidbody;
         private bool _isBraking;
         private IPauseService _pauseService;
         private bool _setPaused;
         private Vector3 _linearVelocity;
+        
         
         
         
@@ -33,7 +35,7 @@ namespace Enemy
 
         void FixedUpdate()
         {
-            if (_pauseService != null && _pauseService.IsPaused)
+            if (_pauseService != null && _pauseService.IsPaused || isDissolved)
             {
                 SetPaused();
                 return;

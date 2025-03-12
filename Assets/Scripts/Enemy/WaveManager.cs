@@ -137,7 +137,10 @@ namespace Enemy
         {
             foreach (var enemy in enemyPool.enemyPool)
             {
-                enemy.SetActive(false);
+                if (enemy.gameObject.activeSelf)
+                {
+                    enemy.GetComponent<DissolveEnemy>().HideObject();
+                }
             }
         }
     

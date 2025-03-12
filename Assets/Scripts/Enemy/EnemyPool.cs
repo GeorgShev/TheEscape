@@ -69,6 +69,7 @@ namespace Enemy
                     IHealth enemyHealth = enemy.GetComponent<IHealth>();
                     enemyHealth.CurrentHP = _enemyStaticData.Hp;
                     enemy.SetActive(true);
+                    enemy.GetComponent<DissolveEnemy>().ShowObject();
                     return enemy;
                 }
             }
