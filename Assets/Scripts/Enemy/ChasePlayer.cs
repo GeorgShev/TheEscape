@@ -1,5 +1,7 @@
+using System.Collections;
 using Services.PauseService;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Enemy
 {
@@ -10,7 +12,7 @@ namespace Enemy
         public float rotationSpeed = 100f; 
         public float maxSpeed = 10f;
         public float brakeForce = 20f;
-        public bool isDissolved;
+        public bool isKnocked;
         private Transform _player; 
         private Rigidbody _rigidbody;
         private bool _isBraking;
@@ -27,6 +29,11 @@ namespace Enemy
             _pauseService = pauseService;
         }
 
+        public void Knocked(float duration)
+        {
+            StartCoroutine(KnockedTimer(duration));
+        }
+
         void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
@@ -35,7 +42,7 @@ namespace Enemy
 
         void FixedUpdate()
         {
-            if (_pauseService != null && _pauseService.IsPaused || isDissolved)
+            if (_pauseService != null && _pauseService.IsPaused || isKnocked)
             {
                 SetPaused();
                 return;
@@ -83,6 +90,7 @@ namespace Enemy
                 _rigidbody.linearVelocity = _linearVelocity;
             }
         }
+        
 
         void RotateTowardsPlayer(Vector3 direction)
         {
@@ -119,6 +127,23 @@ namespace Enemy
                 _rigidbody.AddForce(-_rigidbody.linearVelocity.normalized * brakeForce, ForceMode.Acceleration);
                 _isBraking = true;
             }
+        }
+        
+        private IEnumerator KnockedTimer(float duration)
+        {
+            float timer = 0f;
+
+            while (timer < duration)
+            {
+                timer += Time.deltaTime;
+                if (isKnocked == false)
+                {
+                    isKnocked = true;
+                }
+
+                yield return null; 
+            }
+            isKnocked = false;
         }
     }
 }

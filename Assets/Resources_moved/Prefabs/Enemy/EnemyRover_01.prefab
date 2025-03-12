@@ -104,7 +104,7 @@ MonoBehaviour:
   rotationSpeed: 100
   maxSpeed: 3
   brakeForce: 50
-  isDissolved: 0
+  isKnocked: 0
 --- !u!114 &3699456222668722483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,6 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidbody: {fileID: 7964633506361861889}
+  chasePlayer: {fileID: 4103209648381593401}
 --- !u!114 &1868162759550653604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,9 +157,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0bdb084f8f43784bb0fe40d864646dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dissolveMaterial: {fileID: 2100000, guid: 9b5d9ee9b43afe34d885112aaeab4d63, type: 2}
+  dissolveMaterial: {fileID: 2439031491043841162}
   chasePlayer: {fileID: 4103209648381593401}
-  duration: 2
+  duration: 0.5
 --- !u!1001 &3898071730962974734
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -216,6 +217,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2618f28bcc8ca734b8f44fe9bc3d56c8, type: 3}
+--- !u!23 &2439031491043841162 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 2618f28bcc8ca734b8f44fe9bc3d56c8, type: 3}
+  m_PrefabInstance: {fileID: 3898071730962974734}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3571920664404635621 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2618f28bcc8ca734b8f44fe9bc3d56c8, type: 3}

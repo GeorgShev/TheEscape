@@ -5,23 +5,23 @@ namespace Enemy
 {
     public class DissolveEnemy : MonoBehaviour
     {
-        public Material dissolveMaterial;
+        public Renderer dissolveMaterial;
         public ChasePlayer chasePlayer;
-        
         public float duration = .5f; 
+        
         private float parameterValue = -1f; 
 
         public void HideObject()
         {
             StartCoroutine(LerpParameterUp());
-            chasePlayer.isDissolved = true;
+            chasePlayer.isKnocked = true;
         }
 
         public void ShowObject()
         {
-            dissolveMaterial.SetFloat( "_AlphaThresold" , 1.1f);
+            dissolveMaterial.material.SetFloat( "_AlphaThresold" , 1.1f);
             StartCoroutine(LerpParameterDown());
-            chasePlayer.isDissolved = true;
+            chasePlayer.isKnocked = true;
         }
 
         private IEnumerator LerpParameterUp()
@@ -32,14 +32,14 @@ namespace Enemy
             {
                 timer += Time.deltaTime;
                 
-                dissolveMaterial.SetFloat( "_AlphaThresold" , Mathf.Lerp(-1f, 1f, timer / duration));
+                dissolveMaterial.material.SetFloat( "_AlphaThresold" , Mathf.Lerp(-1f, 1f, timer / duration));
 
                 yield return null; 
             }
 
             
-            dissolveMaterial.SetFloat( "_AlphaThresold" , 1.1f);
-            chasePlayer.isDissolved = false;
+            dissolveMaterial.material.SetFloat( "_AlphaThresold" , 1.1f);
+            chasePlayer.isKnocked = false;
             gameObject.SetActive(false);
         }
 
@@ -51,13 +51,13 @@ namespace Enemy
             {
                 timer += Time.deltaTime;
                 
-                dissolveMaterial.SetFloat( "_AlphaThresold" , Mathf.Lerp(1f, -1f, timer / duration));
+                dissolveMaterial.material.SetFloat( "_AlphaThresold" , Mathf.Lerp(1f, -1f, timer / duration));
 
                 yield return null; 
             }
             
-            dissolveMaterial.SetFloat( "_AlphaThresold" , -1f);
-            chasePlayer.isDissolved = false;
+            dissolveMaterial.material.SetFloat( "_AlphaThresold" , -1f);
+            chasePlayer.isKnocked = false;
         }
     }
 }

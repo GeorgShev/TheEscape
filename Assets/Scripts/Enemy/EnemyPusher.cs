@@ -7,6 +7,7 @@ namespace Enemy
     public class EnemyPusher : MonoBehaviour
     {
         public Rigidbody rigidbody;
+        public ChasePlayer chasePlayer;
         
         private const string EnemyTag = "Enemy";
         private const string PlayerTag = "Player";
@@ -33,8 +34,9 @@ namespace Enemy
             else if (objectCollision.gameObject.CompareTag(EnviromentTag))
             {
                 objectCollision.gameObject.GetComponentInParent<DestructibleObjects>().DestroyObject();
+                chasePlayer?.Knocked(1f);
                 
-                rigidbody.linearVelocity = Vector3.zero;
+                
             }
             
         }
