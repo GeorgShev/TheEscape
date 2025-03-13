@@ -156,6 +156,9 @@ namespace Logic.Scene
             if (_environmentPool.Count > 0)
             {
                 int objectsToSpawn = Random.Range(1, 4);
+                int attempts = 0;
+                int maxAttempts = 5;
+
                 for (int i = 0; i < objectsToSpawn; i++)
                 {
                     if (_environmentPool.Count == 0) break;
@@ -163,18 +166,67 @@ namespace Logic.Scene
                     GameObject env = _environmentPool.Dequeue();
                     env.SetActive(true);
 
-                    
-                    Vector3 localPosition = new Vector3(
-                        Random.Range(-tileSize / 2, tileSize / 2),
-                        0,
-                        Random.Range(-tileSize / 2, tileSize / 2)
-                    );
+                   
+                    Vector3 localPosition = FindValidPosition(tilePosition, parentTile.transform, maxAttempts);
 
-                    
-                    env.transform.SetParent(parentTile.transform);
-                    env.transform.localPosition = localPosition;
+                    if (localPosition != Vector3.zero)
+                    {
+                        env.transform.SetParent(parentTile.transform);
+                        env.transform.localPosition = localPosition;
+                    }
+                    else
+                    {
+                        env.SetActive(false);
+                        _environmentPool.Enqueue(env);
+                    }
                 }
             }
+        }
+        
+        private Vector3 FindValidPosition(Vector3 tilePosition, Transform parentTransform, int maxAttempts)
+        {
+            float minDistanceBetweenObjects = 25f; 
+            float objectRadius = 1f; 
+            int attempts = 0;
+
+            while (attempts < maxAttempts)
+            {
+                
+                Vector3 localPosition = new Vector3(
+                    Random.Range(-tileSize / 2 + objectRadius, tileSize / 2 - objectRadius),
+                    0,
+                    Random.Range(-tileSize / 2 + objectRadius, tileSize / 2 - objectRadius)
+                );
+
+                
+                Vector3 worldPosition = parentTransform.TransformPoint(localPosition);
+
+                
+                if (IsPositionValid(worldPosition, minDistanceBetweenObjects))
+                {
+                    return localPosition;
+                }
+
+                attempts++;
+            }
+
+            return Vector3.zero;
+        }
+        private bool IsPositionValid(Vector3 position, float minDistance)
+        {
+           
+            foreach (var tile in _activeTiles.Values)
+            {
+                foreach (Transform child in tile.transform)
+                {
+                    if (Vector3.Distance(position, child.position) < minDistance)
+                    {
+                        return false; 
+                    }
+                }
+            }
+
+            return true; 
         }
 
         private Vector2Int GetTileCoordinate(Vector3 position)

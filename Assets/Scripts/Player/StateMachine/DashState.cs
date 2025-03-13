@@ -17,7 +17,7 @@ namespace Player.StateMachine
 
         private bool isDashing;
         private float dashTimer;
-        private float dashDuration = .2f;
+        private float dashDuration = .25f;
         
         private Vector3 dashStartPosition;
         private Vector3 dashTargetPosition; 
@@ -52,15 +52,15 @@ namespace Player.StateMachine
 
                 if (progress < 0.2f)
                 {
-                    Player.catMaterial.SetFloat("_NoisePower", Mathf.Lerp(0f, 0.35f, progress / .2f));
+                    Player.catMaterial.SetFloat("_NoisePower", Mathf.Lerp(0f, 0.1f, progress / .2f));
                 }
                 else if (progress < 0.8f)
                 {
-                    Player.catMaterial.SetFloat("_NoisePower",.35f);
+                    Player.catMaterial.SetFloat("_NoisePower",.1f);
                 }
                 else
                 {
-                    Player.catMaterial.SetFloat("_NoisePower",Mathf.Lerp(0.35f, 0f, (progress - 0.8f) / .2f));
+                    Player.catMaterial.SetFloat("_NoisePower",Mathf.Lerp(0.1f, 0f, (progress - 0.8f) / .2f));
                 }
 
                 if (dashTimer >= dashDuration)
