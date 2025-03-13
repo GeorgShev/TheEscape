@@ -74,6 +74,8 @@ namespace Player.StateMachine
 
         public override void Exit()
         {
+            Player.catMaterial.SetFloat("_NoisePower",0f);
+            Player.isDashing = false;
             Player.Animator.StopPlayback();
         }
         

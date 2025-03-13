@@ -64,11 +64,13 @@ MonoBehaviour:
   - {fileID: 3983037134902407388}
   - {fileID: 6543932293712552238}
   environmentPrefabs:
-  - {fileID: 3582145675326303981, guid: a8f1adae12eb27245b122f40db061c56, type: 3}
-  - {fileID: 7069599370585719835, guid: 8238b81d628961948b9e75cc2ff7dc2e, type: 3}
+  - {fileID: 7023178278423375013, guid: df559385c23fa054b9dc890a4ea08cfc, type: 3}
+  - {fileID: 1698825558882031586, guid: 67b34c7e1c2d64040839188573c766b2, type: 3}
+  - {fileID: 3474914346308832991, guid: c8e288fd993a2a84e9cc17d7c95cd294, type: 3}
+  - {fileID: 3630674653545455749, guid: 51b8cfafc646ddf4e96c21371cb8765e, type: 3}
   tileSize: 15
   bufferZone: 2
-  environmentPoolSize: 10
+  environmentPoolSize: 15
 --- !u!1001 &264892593065213684
 PrefabInstance:
   m_ObjectHideFlags: 0
