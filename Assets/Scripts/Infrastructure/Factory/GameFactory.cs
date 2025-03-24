@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Assets.Scripts.UI.Elements;
+using Audio;
 using Enemy;
 using Infrastructure.AssetManagement;
 using Infrastructure.State;
@@ -9,6 +10,7 @@ using Logic.EnemySpawners;
 using Logic.Gates;
 using Logic.Scene;
 using Player;
+using Services.AudioService;
 using Services.InputService;
 using Services.PauseService;
 using Services.PersistentProgressService;
@@ -38,6 +40,7 @@ namespace Infrastructure.Factory
         private readonly IPersistentProgressService _persistentProgressService;
         private readonly IWindowService _windowService;
         private readonly IGameStateMachine _gameStateMachine;
+        private readonly IAudioService _audioService;
 
         private GameObject _playerGameObject;
         private GameObject _gameManager;
@@ -53,7 +56,7 @@ namespace Infrastructure.Factory
             IRandomService randomService,
             IPersistentProgressService persistentProgressService,
             IWindowService windowService,
-            IGameStateMachine gameStateMachine)
+            IGameStateMachine gameStateMachine, IAudioService audioService)
         {
             _assetsProvider = assetsProvider;
             _inputService = inputService;
@@ -63,6 +66,7 @@ namespace Infrastructure.Factory
             _persistentProgressService = persistentProgressService;
             _windowService = windowService;
             _gameStateMachine = gameStateMachine;
+            _audioService = audioService;
         }
 
         public async Task WarmUp()
@@ -100,14 +104,12 @@ namespace Infrastructure.Factory
 
             PlayerHealth health = _playerGameObject.GetComponent<PlayerHealth>();
             health.Construct(playerStaticData);
-            /*health.MaxHP = playerStaticData.MaxHP;
-            health.CurrentHP = playerStaticData.CurrentHP;*/
             health.TextPrefab = await _assetsProvider.Load<GameObject>(AssetsAddress.HpText);
             PlayerDeath heroDeath = _playerGameObject.GetComponent<PlayerDeath>();
             heroDeath.Construct(_gameStateMachine, _windowService, _persistentProgressService);
             
             PlayerController playerController = _playerGameObject.GetComponent<PlayerController>();
-            playerController.Construct(health, _pauseService);
+            playerController.Construct(health, _pauseService, _audioService);
             
             AbilityHolder abilityHolder = _playerGameObject.GetComponent<AbilityHolder>();
             abilityHolder.Construct(_pauseService);
@@ -118,12 +120,30 @@ namespace Infrastructure.Factory
             return _playerGameObject;
         }
 
+        public async Task<GameObject> CreateAudioPlayer(bool isMenu)
+        {
+            AudioCollection audioCollection = _staticDataService.ForAudio();
+            GameObject audioPlayerObject =   await InstantiateRegisteredAsync(AssetsAddress.AudioPlayerPath);
+            IAudioPlayer audioPlayer =  audioPlayerObject.GetComponent<IAudioPlayer>();
+            
+            _audioService.Consturct(audioCollection, audioPlayer);
+            _audioService.Initialize();
+            if (isMenu)
+            {
+                _audioService.StartMusic(AudioTypeId.MenuMusic);
+            }
+            else
+            {
+                _audioService.StartMusic(AudioTypeId.GameMusic);
+            }
+            
+            return audioPlayerObject;
+        }
+
         public async Task<GameObject> CreateHud()
         {
 
             _hud = await InstantiateRegisteredAsync(AssetsAddress.HudPath);
-
-           // _hud.GetComponentInChildren<LootCounter>().Construct(_persistentProgressService.Progress.WorldData);
 
             foreach(OpenWindowButton openWindowButton in _hud.GetComponentsInChildren<OpenWindowButton>())
             {
@@ -179,6 +199,9 @@ namespace Infrastructure.Factory
 
             ChasePlayer chasePlayer = enemy.GetComponent<ChasePlayer>();
             chasePlayer.Construct(_playerGameObject, _pauseService);
+            enemy.GetComponent<EnemyPusher>().Construct(_audioService);
+            enemy.GetComponent<EnemyDeath>().InitAudioService(_audioService);
+            
             IHealth health = enemy.GetComponent<IHealth>();
             health.CurrentHP = monsterStaticData.Hp;
             health.MaxHP = monsterStaticData.Hp;

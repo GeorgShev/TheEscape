@@ -70,6 +70,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ed41cc86cdc83b4499f2643326493e88
+    m_Address: AudioPlayer
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fa81630f18a1c1842bdb2d5544614e83
     m_Address: WorldManager
     m_ReadOnly: 0

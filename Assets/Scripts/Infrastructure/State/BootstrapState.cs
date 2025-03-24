@@ -2,6 +2,7 @@ using Infrastructure.AssetManagement;
 using Infrastructure.Factory;
 using Services;
 using Services.Ads;
+using Services.AudioService;
 using Services.InputService;
 using Services.PauseService;
 using Services.PersistentProgressService;
@@ -45,6 +46,7 @@ namespace Infrastructure.State
             RegisterStaticDataService();
             RegisterAdsService();
             RegisterPauseService();
+            RegisterAudioService();
 
             _services.RegisterSingle<IGameStateMachine>(_gameStateMachine);
             _services.RegisterSingle<IInputService>(InputService());
@@ -68,7 +70,8 @@ namespace Infrastructure.State
                 _services.Single<IRandomService>(), 
                 _services.Single<IPersistentProgressService>(),
                 _services.Single<IWindowService>(),
-                _services.Single<IGameStateMachine>()));
+                _services.Single<IGameStateMachine>(),
+                _services.Single<IAudioService>()));
 
             _services.RegisterSingle<ISaveLoadService>(new SaveLoadService(
                 _services.Single<IPersistentProgressService>(),
@@ -94,6 +97,12 @@ namespace Infrastructure.State
             IPauseService pauseService = new PauseService();
             pauseService.SetPause(false);
             _services.RegisterSingle(pauseService);
+        }
+
+        private void RegisterAudioService()
+        {
+            IAudioService audioService = new AudioService();
+            _services.RegisterSingle(audioService);
         }
 
 

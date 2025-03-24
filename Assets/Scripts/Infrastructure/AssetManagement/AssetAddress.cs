@@ -3,6 +3,7 @@ namespace Infrastructure.AssetManagement
     public static class AssetsAddress
     {
         public const string HeroPath = "Player";
+        public const string AudioPlayerPath = "AudioPlayer";
         public const string HudPath = "Hud";
         public const string MenuPath = "MainMenu";
         public const string Loot = "LootBase";

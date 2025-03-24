@@ -1,3 +1,5 @@
+using Services.AudioService;
+using StaticData;
 using UnityEngine;
 
 namespace Player.StateMachine
@@ -6,12 +8,14 @@ namespace Player.StateMachine
     {
         
         private SkinnedMeshRenderer _skinnedMeshRenderer;
+        private IAudioService _audioService;
         private float timer = 0f;
         private bool isFirstFunctionRunning = true;
-        public KnockoutState(PlayerController player, Animator animator) : base(player, animator)
+        public KnockoutState(PlayerController player, Animator animator, IAudioService audioService) : base(player, animator)
         {
             Player = player;
             _animator = animator;
+            _audioService = audioService;
         }
 
         public override void Enter()
@@ -21,6 +25,8 @@ namespace Player.StateMachine
             Player.GetComponent<PlayerController>().KnockbackAction?.Invoke();
             Player.GetComponent<PlayerHealth>().enabled = false;
             Player.GetComponent<AbilityHolder>().enabled = false;
+            
+            _audioService.PlaySound(AudioTypeId.PlayerKnock1);
 
             _skinnedMeshRenderer = Player.GetComponentInChildren<SkinnedMeshRenderer>();
         }

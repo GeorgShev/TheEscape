@@ -16,6 +16,7 @@ namespace Infrastructure.Factory
 
 
         Task<GameObject> CreatePlayer(Vector3 playerInitialPoint);
+        Task<GameObject> CreateAudioPlayer(bool isMenu);
         Task<GameObject> CreateHud();
         Task<GameObject> CreateMenu();
         Task<LootPiece> CreateLoot();

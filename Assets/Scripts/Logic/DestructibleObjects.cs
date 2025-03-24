@@ -1,38 +1,49 @@
-using System;
 using System.Collections;
 using Services;
+using Services.AudioService;
 using Services.PauseService;
+using StaticData;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class DestructibleObjects : MonoBehaviour
+namespace Logic
 {
-
-    private IPauseService _pauseService;
-    private void Start()
+    public class DestructibleObjects : MonoBehaviour
     {
-        _pauseService = AllServices.Container.Single<IPauseService>();
-    }
+        public AudioTypeId audioTypeId;
 
-    public void DestroyObject()
-    {
-        StartCoroutine(DestroyTimer());
-    }
-    
-    private IEnumerator DestroyTimer()
-    {
-        float delay = 0.1f;
-        float timer = 0f;
-
-        while (timer < delay)
+        private IPauseService _pauseService;
+        private IAudioService _audioService;
+        private void Start()
         {
-            if (!_pauseService.IsPaused)
-            {
-                timer += Time.deltaTime;
-            }
-
-            yield return null;
+            _pauseService = AllServices.Container.Single<IPauseService>();
+            _audioService = AllServices.Container.Single<IAudioService>();
         }
-        gameObject.SetActive(false);
+
+        public void DestroyObject()
+        {
+            _audioService.PlaySound(audioTypeId);
+            StartCoroutine(DestroyTimer());
+        }
+    
+        private IEnumerator DestroyTimer()
+        {
+            float delay = 0.1f;
+            float timer = 0f;
+
+            while (timer < delay)
+            {
+                if (!_pauseService.IsPaused)
+                {
+                    timer += Time.deltaTime;
+                }
+
+                yield return null;
+            }
             
+            _audioService.PlaySound(AudioTypeId.EnemyDie);
+            gameObject.SetActive(false);
+            
+        }
     }
 }

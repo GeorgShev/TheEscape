@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using Logic;
+using Services.AudioService;
 using Services.PauseService;
+using StaticData;
 using UnityEngine;
 
 namespace Enemy
@@ -13,6 +15,7 @@ namespace Enemy
         
         private GameManager _gameManager;
         private IPauseService _pauseService;
+        private IAudioService _audioService;
 
         public void Construct(GameManager gameManager)
         {
@@ -22,6 +25,11 @@ namespace Enemy
         public void InitPauseService(IPauseService pauseService)
         {
             _pauseService = pauseService;
+        }
+
+        public void InitAudioService(IAudioService audioService)
+        {
+            _audioService = audioService;
         }
 
         public event Action Happened;
@@ -78,6 +86,7 @@ namespace Enemy
             }
                 //added score to enemy data
                 _gameManager.AddedScore(5);
+                _audioService.PlaySound(AudioTypeId.EnemyDie);
                 gameObject.SetActive(false);
             
         }

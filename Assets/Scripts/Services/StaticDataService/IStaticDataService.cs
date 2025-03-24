@@ -11,5 +11,6 @@ namespace Services.StaticDataService
         WindowStaticData ForWindow(WindowId windowId);
         GateStaticData ForGate(GateTypeId gateKety);
         PlayerStaticData ForPlayer(PlayerTypeId playerTypeId);
+        AudioCollection ForAudio();
     }
 }

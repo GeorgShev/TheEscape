@@ -1,6 +1,7 @@
 using Logic;
+using Services.AudioService;
+using StaticData;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Enemy
 {
@@ -13,6 +14,13 @@ namespace Enemy
         private const string PlayerTag = "Player";
         private const string EnviromentTag = "DestructibleEnviroment";
         
+        private IAudioService _audioService;
+
+
+        public void Construct(IAudioService audioService)
+        {
+            _audioService = audioService;
+        }
         
         private void OnCollisionEnter(Collision objectCollision)
         {
@@ -23,9 +31,12 @@ namespace Enemy
             
             if (objectCollision.gameObject.CompareTag(EnemyTag) && magnitude >= 1.7f)
             {
-                //Debug.LogError(other.gameObject.name);
-                //Debug.LogError(magnitude.ToString());
                 objectCollision.gameObject.GetComponent<IHealth>()?.TakeDamage(1, Color.white);
+                _audioService.PlaySound(AudioTypeId.EnemyColidetEasy, magnitude/10);
+            }
+            else if (objectCollision.gameObject.CompareTag(EnemyTag) && magnitude < 1.7f)
+            {
+                _audioService.PlaySound(AudioTypeId.EnemyColidetEasy, magnitude/10);
             }
             else if (objectCollision.gameObject.CompareTag(PlayerTag))
             {

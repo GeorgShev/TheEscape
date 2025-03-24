@@ -14,12 +14,14 @@ namespace Services.StaticDataService
         private const string _staticDataenemyPath = "StaticData/Enemy";
         private const string _staticDataWindowPath = "StaticData/UI";
         private const string _staticDataHeroPath = "StaticData/Player";
+        private const string _staticDataAudioPath = "StaticData/Audio/AudioCollection";
         
         private Dictionary<EnemyTypeId, EnemyStaticData> _enemy;
         private Dictionary<GateTypeId, GateStaticData> _gate;
         private Dictionary<string, LevelStaticData> _levels;
         private Dictionary<WindowId, WindowStaticData> _windowConfigs;
         private Dictionary<PlayerTypeId, PlayerStaticData> _playerConfigs;
+        private  AudioCollection _audioCollection;
    
 
         public void Load()
@@ -33,6 +35,9 @@ namespace Services.StaticDataService
             _windowConfigs = Resources.LoadAll<WindowStaticData>(_staticDataWindowPath).ToDictionary(x => x.WindowId, x => x);
 
             _playerConfigs = Resources.LoadAll<PlayerStaticData>(_staticDataHeroPath).ToDictionary(x => x.PlayerTypeIdTyoeId, x => x);
+
+            _audioCollection = Resources.Load<AudioCollection>(_staticDataAudioPath);
+
 
         }
 
@@ -82,6 +87,14 @@ namespace Services.StaticDataService
             }
             return null;
         }
-        
+
+        public AudioCollection ForAudio()
+        {
+            if (_audioCollection)
+            {
+                return _audioCollection;
+            }
+            return null;
+        }
     }
 }

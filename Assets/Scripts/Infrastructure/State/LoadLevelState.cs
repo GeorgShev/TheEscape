@@ -90,6 +90,7 @@ namespace Infrastructure.State
             {
                 await InitGameManager();
                 await InitHud(null, levelStaticData);
+                await InitAudioPlayer(true);
                 
             }
             else
@@ -100,6 +101,7 @@ namespace Infrastructure.State
                 //await InitLootPieces();
                 GameObject player = await InitPlayer(levelStaticData);
                 await InitSpawners(levelStaticData, gameManager);
+                await InitAudioPlayer(false);
                 await InitHud(player, levelStaticData);
                 CameraFollow(player);
             }
@@ -144,6 +146,11 @@ namespace Infrastructure.State
                 lootPiece.transform.position = item.Value.Position.AsUnityVector();
 
             }
+        }
+        
+        private async Task InitAudioPlayer(bool isMenu)
+        {
+              await _gameFactory.CreateAudioPlayer(isMenu);
         }
 
 

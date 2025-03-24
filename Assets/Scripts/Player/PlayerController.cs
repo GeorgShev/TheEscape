@@ -2,6 +2,7 @@ using System;
 using Logic;
 using Player.StateMachine;
 using Services;
+using Services.AudioService;
 using Services.InputService;
 using Services.PauseService;
 using UnityEngine;
@@ -32,6 +33,7 @@ namespace Player
        
         private IInputService _inputService;
         private IPauseService _pauseService;
+        private IAudioService _audioService;
         private StateMachine.StateMachine _stateMachine;
         private IHealth _health;
         private RunState _runState;
@@ -41,11 +43,15 @@ namespace Player
         private DeathState _deathState;
         
         private bool _isDead;
+        private bool _statesInitialized;
 
-        public void Construct(IHealth health, IPauseService pauseService)
+        public void Construct(IHealth health, IPauseService pauseService, IAudioService audioService)
         {
             _health = health;
             _pauseService = pauseService;
+            _audioService = audioService;
+            
+            InitStates();
             HealthChangedSubscribe();
             
         }
@@ -57,21 +63,23 @@ namespace Player
         }
 
 
-        public void Start()
+        public void InitStates()
         {
             _stateMachine = new StateMachine.StateMachine();
             _idleState = new IdleState(this, Animator);
             _runState = new RunState(this, Animator);
-            _dashState = new DashState(this, Animator);
-            _knockoutState = new KnockoutState(this, Animator);
-            _deathState = new DeathState(this, Animator,PlayerDeath);
+            _dashState = new DashState(this, Animator, _audioService);
+            _knockoutState = new KnockoutState(this, Animator, _audioService);
+            _deathState = new DeathState(this, Animator,PlayerDeath, _audioService);
             _stateMachine.Initialize(_idleState);
+
+            _statesInitialized = true;
         }
 
 
         private void Update()
         {
-            if (_pauseService != null && _pauseService.IsPaused)
+            if (_pauseService != null && _pauseService.IsPaused || !_statesInitialized)
             {
                 return;
             }

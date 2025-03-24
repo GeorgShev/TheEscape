@@ -1,5 +1,7 @@
 using Services;
+using Services.AudioService;
 using Services.InputService;
+using StaticData;
 using UnityEngine;
 
 namespace Player.StateMachine
@@ -12,6 +14,7 @@ namespace Player.StateMachine
         private float _smoothInputSpeed = .2f;
         private float _dashRange = 3f;
         private CharacterController _characterController;
+        private IAudioService _audioService;
         private Vector3 _movementVector;
         private Vector3 _multipliedMatrix;
 
@@ -23,17 +26,20 @@ namespace Player.StateMachine
         private Vector3 dashTargetPosition; 
 
 
-        public DashState(PlayerController player, Animator animator) : base(player, animator)
+        public DashState(PlayerController player, Animator animator, IAudioService audioService) : base(player, animator)
         {
             Player = player;
             _animator = animator;
             _characterController = player.characterController;
+            _audioService = audioService;
             //_canDash = true;
         }
 
         public override void Enter()
         {
             Player.Animator.CrossFade(_animationNames.RunHash, 0.1f);
+            
+            _audioService.PlaySound(AudioTypeId.PlayerDash);
 
             StartDash();
         }
