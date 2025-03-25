@@ -113,6 +113,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2aaf1639bef27ba469dce462dedf051a, type: 3}
   m_PrefabInstance: {fileID: 5361440268759261197}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &6748147223378033801 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 2aaf1639bef27ba469dce462dedf051a, type: 3}
+  m_PrefabInstance: {fileID: 5361440268759261197}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8471046545034367993
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -166,6 +171,18 @@ PrefabInstance:
       value: Mushroom_02
       objectReference: {fileID: 0}
     - target: {fileID: 8394340691240407641, guid: 06deae3117c35db4ea1120783624dc2f, type: 3}
+      propertyPath: body
+      value: 
+      objectReference: {fileID: 6748147223378033801}
+    - target: {fileID: 8394340691240407641, guid: 06deae3117c35db4ea1120783624dc2f, type: 3}
+      propertyPath: DeathFx
+      value: 
+      objectReference: {fileID: 7428593454513185117}
+    - target: {fileID: 8394340691240407641, guid: 06deae3117c35db4ea1120783624dc2f, type: 3}
+      propertyPath: Collider
+      value: 
+      objectReference: {fileID: 2411097145989415297}
+    - target: {fileID: 8394340691240407641, guid: 06deae3117c35db4ea1120783624dc2f, type: 3}
       propertyPath: audioTypeId
       value: 2
       objectReference: {fileID: 0}
@@ -180,5 +197,10 @@ PrefabInstance:
 --- !u!4 &1442887742079803337 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7028176396933155888, guid: 06deae3117c35db4ea1120783624dc2f, type: 3}
+  m_PrefabInstance: {fileID: 8471046545034367993}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &7428593454513185117 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1339989737017848484, guid: 06deae3117c35db4ea1120783624dc2f, type: 3}
   m_PrefabInstance: {fileID: 8471046545034367993}
   m_PrefabAsset: {fileID: 0}

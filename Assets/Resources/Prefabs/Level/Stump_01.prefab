@@ -53,6 +53,18 @@ PrefabInstance:
       value: Stump_01
       objectReference: {fileID: 0}
     - target: {fileID: 8394340691240407641, guid: 06deae3117c35db4ea1120783624dc2f, type: 3}
+      propertyPath: body
+      value: 
+      objectReference: {fileID: 5506559186033330840}
+    - target: {fileID: 8394340691240407641, guid: 06deae3117c35db4ea1120783624dc2f, type: 3}
+      propertyPath: DeathFx
+      value: 
+      objectReference: {fileID: 4820652495470532154}
+    - target: {fileID: 8394340691240407641, guid: 06deae3117c35db4ea1120783624dc2f, type: 3}
+      propertyPath: Collider
+      value: 
+      objectReference: {fileID: 3638472953663285106}
+    - target: {fileID: 8394340691240407641, guid: 06deae3117c35db4ea1120783624dc2f, type: 3}
       propertyPath: audioTypeId
       value: 3
       objectReference: {fileID: 0}
@@ -67,6 +79,11 @@ PrefabInstance:
 --- !u!4 &3600598514213415086 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7028176396933155888, guid: 06deae3117c35db4ea1120783624dc2f, type: 3}
+  m_PrefabInstance: {fileID: 5800350961075561630}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &4820652495470532154 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1339989737017848484, guid: 06deae3117c35db4ea1120783624dc2f, type: 3}
   m_PrefabInstance: {fileID: 5800350961075561630}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6605285069647828508
@@ -149,6 +166,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 3638472953663285106}
   m_SourcePrefab: {fileID: 100100000, guid: 235dce0a3833b854892851b259f3d2bb, type: 3}
+--- !u!23 &5506559186033330840 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 235dce0a3833b854892851b259f3d2bb, type: 3}
+  m_PrefabInstance: {fileID: 6605285069647828508}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6299346308788513613 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 235dce0a3833b854892851b259f3d2bb, type: 3}

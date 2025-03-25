@@ -11,7 +11,10 @@ namespace Enemy
     public class EnemyDeath : MonoBehaviour
     {
         public EnemyHealth Health;
-        public GameObject DeathFx;
+        public ParticleSystem DeathFx;
+        public MeshRenderer body;
+        public ChasePlayer chasePlayer;
+        public Collider boxCollider;
         
         private GameManager _gameManager;
         private IPauseService _pauseService;
@@ -56,23 +59,15 @@ namespace Enemy
         {
             //Animator.PlayDeath();
             Health.HealthChanged -= HealthChanged;
-
-            //SpawnDeathFx();
+            
             StartCoroutine(DestroyTimer());
 
             Happened?.Invoke();
         }
 
-        private void SpawnDeathFx()
-        {
-            GameObject explosion = Instantiate(DeathFx, transform.position, Quaternion.identity);
-
-            Destroy(explosion, 2f);
-        }
-
         private IEnumerator DestroyTimer()
         {
-            float delay = 0.1f;
+            float delay = 0.15f;
             float timer = 0f;
 
             while (timer < delay)
@@ -86,9 +81,24 @@ namespace Enemy
             }
                 //added score to enemy data
                 _gameManager.AddedScore(5);
-                _audioService.PlaySound(AudioTypeId.EnemyDie);
-                gameObject.SetActive(false);
-            
+                DeathLogic();
+        }
+
+        public void DeathLogic()
+        {
+            body.enabled = false;
+            boxCollider.enabled = false;
+            chasePlayer.isKnocked = true;
+            _audioService.PlaySound(AudioTypeId.EnemyDie);
+            DeathFx.Play();
+            Invoke(nameof(HiddenObject), .5f);   
+        }
+
+        public void HiddenObject()
+        {
+            gameObject.SetActive(false);
+            boxCollider.enabled = true;
+            body.enabled = true;
         }
     }
 }

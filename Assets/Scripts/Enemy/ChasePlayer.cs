@@ -1,7 +1,6 @@
 using System.Collections;
 using Services.PauseService;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Enemy
 {

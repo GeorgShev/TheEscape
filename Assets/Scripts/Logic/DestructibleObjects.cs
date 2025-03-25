@@ -4,13 +4,15 @@ using Services.AudioService;
 using Services.PauseService;
 using StaticData;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Logic
 {
     public class DestructibleObjects : MonoBehaviour
     {
         public AudioTypeId audioTypeId;
+        public ParticleSystem DeathFx;
+        public MeshRenderer body;
+        public Collider Collider;
 
         private IPauseService _pauseService;
         private IAudioService _audioService;
@@ -42,8 +44,24 @@ namespace Logic
             }
             
             _audioService.PlaySound(AudioTypeId.EnemyDie);
+            DeathLogic();
+
+        }
+        
+        public void DeathLogic()
+        {
+            body.enabled = false;
+            Collider.enabled = false;
+            _audioService.PlaySound(AudioTypeId.EnemyDie);
+            DeathFx.Play();
+            Invoke(nameof(HiddenObject), .5f);   
+        }
+
+        public void HiddenObject()
+        {
             gameObject.SetActive(false);
-            
+            Collider.enabled = true;
+            body.enabled = true;
         }
     }
 }
